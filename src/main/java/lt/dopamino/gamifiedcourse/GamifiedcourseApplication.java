@@ -10,4 +10,5 @@ public class GamifiedcourseApplication {
         SpringApplication.run(GamifiedcourseApplication.class, args);
     }
     //Saimonas test
+    //Armonas test
 }
