@@ -11,5 +11,5 @@ public class GamifiedcourseApplication {
     }
     //Saimonas test
     //Armonas test
-    // belekas
+    // belekass
 }
