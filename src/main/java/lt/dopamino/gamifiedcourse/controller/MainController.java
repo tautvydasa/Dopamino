@@ -11,4 +11,9 @@ public class MainController {
         return "mainPage";
     }
 
+    @GetMapping("/Kursai")
+    public String Kursai() {
+        return "Kursai";
+    }
+
 }
