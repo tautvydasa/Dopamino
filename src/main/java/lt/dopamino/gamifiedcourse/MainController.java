@@ -1,14 +1,19 @@
 package lt.dopamino.gamifiedcourse;
 
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.bind.annotation.RequestMapping;
+        import org.springframework.stereotype.Controller;
+        import org.springframework.web.bind.annotation.GetMapping;
 
-@RestController
+@Controller
 public class MainController {
 
-    @RequestMapping("/")
-    public String index() {
-        return "Greetings from Spring Boot!";
+    @GetMapping("/")
+    public String mainPage() {
+        return "mainPage";
+    }
+
+    @GetMapping("/Kursai")
+    public String Kursai() {
+        return "Kursai";
     }
 
 }
