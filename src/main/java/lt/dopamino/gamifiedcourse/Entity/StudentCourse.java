@@ -6,11 +6,11 @@ package lt.dopamino.gamifiedcourse.Entity;
 
 public class StudentCourse
 {
-	private int progresas;
+	private double progresas;
 	
-	private int ivertinimas;
+	private double ivertinimas;
 	
-	private int arVertino;
+	private boolean arVertino;
 	
 	public void updateStudentCourse( )
 	{

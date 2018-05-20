@@ -6,9 +6,9 @@ package lt.dopamino.gamifiedcourse.Entity;
 
 public class Teacher extends User
 {
-	private int vardas;
+	private String vardas;
 	
-	private int pavarde;
+	private String pavarde;
 	
 	private int telefonoNumeris;
 	

@@ -6,9 +6,9 @@ package lt.dopamino.gamifiedcourse.Entity;
 
 public class FAQ
 {
-	private int klausimas;
+	private String klausimas;
 	
-	private int atsakymas;
+	private String atsakymas;
 	
 	public void selectFAQData( )
 	{

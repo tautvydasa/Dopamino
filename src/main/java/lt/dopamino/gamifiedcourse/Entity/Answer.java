@@ -4,9 +4,12 @@
 
 package lt.dopamino.gamifiedcourse.Entity;
 
+
+
 public class Answer
 {
-	private int pavadinimas;
+	private String pavadinimas;
+	private boolean arTeisingas;
 	
 	public void selectAnswers( )
 	{

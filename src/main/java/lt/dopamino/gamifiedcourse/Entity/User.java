@@ -6,11 +6,11 @@ package lt.dopamino.gamifiedcourse.Entity;
 
 public class User
 {
-	private int slapyvardis;
+	private String slapyvardis;
 	
-	private int elpastas;
+	private String elpastas;
 	
-	private int slaptazodis;
+	private String slaptazodis;
 	
 	public void selectPermissions( )
 	{

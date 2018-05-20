@@ -4,13 +4,15 @@
 
 package lt.dopamino.gamifiedcourse.Entity;
 
+import java.util.Date;
+
 public class Course
 {
-	private int pavadinimas;
+	private String pavadinimas;
 	
-	private int kaina;
+	private double kaina;
 	
-	private int data;
+	private Date data;
 	
 	private int vertinimoSuma;
 	
