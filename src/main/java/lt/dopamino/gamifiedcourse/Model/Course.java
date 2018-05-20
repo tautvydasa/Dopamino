@@ -20,6 +20,7 @@ public class Course
 	
 	private boolean arMatomas;
 
+
 	public void selectCourses( )
 	{
 		
