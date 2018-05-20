@@ -4,6 +4,9 @@
 
 package lt.dopamino.gamifiedcourse.controller;
 
+import org.springframework.stereotype.Controller;
+
+@Controller
 public class UserController
 {
 	public void deletePost( )
