@@ -4,11 +4,13 @@
 
 package lt.dopamino.gamifiedcourse.Model;
 
+import java.util.Date;
+
 public class Payment
 {
-	private int data;
+	private Date data;
 	
-	private int suma;
+	private double suma;
 	
 	private int taskuKiekis;
 	

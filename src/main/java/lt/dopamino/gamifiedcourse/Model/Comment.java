@@ -4,11 +4,13 @@
 
 package lt.dopamino.gamifiedcourse.Model;
 
+import java.util.Date;
+
 public class Comment
 {
-	private int tekstas;
+	private String tekstas;
 	
-	private int data;
+	private Date data;
 	
 	public void selectPostComments( )
 	{

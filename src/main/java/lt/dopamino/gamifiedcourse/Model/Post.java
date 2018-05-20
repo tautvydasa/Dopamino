@@ -4,13 +4,15 @@
 
 package lt.dopamino.gamifiedcourse.Model;
 
+import java.util.Date;
+
 public class Post
 {
-	private int pavadinimas;
+	private String pavadinimas;
 	
-	private int aprasas;
+	private String aprasas;
 	
-	private int data;
+	private Date data;
 	
 	public void deletePostData( )
 	{

@@ -4,6 +4,9 @@
 
 package lt.dopamino.gamifiedcourse.Administrator;
 
+import org.springframework.stereotype.Controller;
+
+@Controller
 public class AdminController
 {
 	public void openRequests( )

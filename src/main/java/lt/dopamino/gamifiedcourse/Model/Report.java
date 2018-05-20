@@ -4,13 +4,15 @@
 
 package lt.dopamino.gamifiedcourse.Model;
 
+import java.util.Date;
+
 public class Report
 {
-	private int vartotojoVardas;
+	private String vartotojoVardas;
 	
-	private int aprasymas;
+	private String aprasymas;
 	
-	private int data;
+	private Date data;
 	
 	public void selectReportsData( )
 	{

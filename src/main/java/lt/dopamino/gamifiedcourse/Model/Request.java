@@ -4,17 +4,19 @@
 
 package lt.dopamino.gamifiedcourse.Model;
 
+import java.util.Date;
+
 public class Request
 {
-	private int vardas;
+	private String vardas;
 	
-	private int pavarde;
+	private String pavarde;
 	
-	private int issilavinimas;
+	private String issilavinimas;
 	
-	private int aprasymas;
+	private String aprasymas;
 	
-	private int data;
+	private Date data;
 	
 	public void insertRequest( )
 	{

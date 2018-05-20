@@ -6,12 +6,14 @@ package lt.dopamino.gamifiedcourse.Model;
 
 public class CourseSection
 {
-	private int pavadinimas;
+	private String pavadinimas;
 	
-	private int aprasymas;
+	private String aprasymas;
 	
 	private int svoris;
-	
+
+	private String zenkliukai;
+
 	private CourseSection ankstesnisSkyrius;
 	
 	private CourseSection sekantisSkyrius;

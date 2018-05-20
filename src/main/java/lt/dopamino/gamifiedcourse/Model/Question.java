@@ -6,7 +6,7 @@ package lt.dopamino.gamifiedcourse.Model;
 
 public class Question
 {
-	private int pavadinimas;
+	private String pavadinimas;
 	
 	public void selectQuestion( )
 	{

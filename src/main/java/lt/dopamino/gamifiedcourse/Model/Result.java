@@ -4,11 +4,13 @@
 
 package lt.dopamino.gamifiedcourse.Model;
 
+import java.util.Date;
+
 public class Result
 {
-	private int ivertinimas;
+	private double ivertinimas;
 	
-	private int data;
+	private Date data;
 	
 	public void insertTestResult( )
 	{
