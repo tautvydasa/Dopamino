@@ -8,14 +8,9 @@ import java.util.Date;
 
 public class Result
 {
-	private double ivertinimas;
+	private double mark;
 	
-	private Date data;
-	
-	public void insertTestResult( )
-	{
-		
-	}
+	private Date date;
 	
 	
 }

@@ -12,7 +12,7 @@ public class MainController {
     }
 
     @GetMapping("/Kursai")
-    public String Kursai() {
+    public String kursai() {
         return "Kursai";
     }
 

@@ -18,5 +18,5 @@ public class Student extends User
 	private int points;
 
 	@OneToMany(mappedBy = "student")
-	private List<StudentCourse> studentCourse;
+	private List<StudentCourse> studentCourses;
 }

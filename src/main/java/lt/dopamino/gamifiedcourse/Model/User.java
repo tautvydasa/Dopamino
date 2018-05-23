@@ -2,23 +2,28 @@ package lt.dopamino.gamifiedcourse.Model;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.MappedSuperclass;
+import java.util.Collection;
+import java.util.Collections;
 
 @Getter
 @Setter
 @MappedSuperclass
-public class User /*implements UserDetails */{
+public class User implements UserDetails {
 
     private String nickname;
 
     private String email;
 
     private String password;
-/*
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
+        return Collections.singletonList(new SimpleGrantedAuthority("ROLE"));
     }
 
     @Override
@@ -44,5 +49,5 @@ public class User /*implements UserDetails */{
     @Override
     public boolean isEnabled() {
         return true;
-    }*/
+    }
 }

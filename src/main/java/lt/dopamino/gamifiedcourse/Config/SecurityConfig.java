@@ -1,5 +1,5 @@
 package lt.dopamino.gamifiedcourse.Config;
-/*
+
 import lt.dopamino.gamifiedcourse.Service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
@@ -55,4 +55,4 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
                 .logoutSuccessUrl("/");
     }
-}*/
+}

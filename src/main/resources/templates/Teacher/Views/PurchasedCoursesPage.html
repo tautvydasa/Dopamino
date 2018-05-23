@@ -1,10 +1,15 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
 <body>
-    Purchased courses page
+Purchased courses page
+
+<div th:text="${student}">...</div>
+<!--<ul th:each="studentCourse : ${student.studentCourses}">-->
+    <!--<li th:text="${studentCourse.evaluation}">.....</li>-->
+<!--</ul>-->
 </body>
 </html>
