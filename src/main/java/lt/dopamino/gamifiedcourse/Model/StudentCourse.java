@@ -1,31 +1,28 @@
-/**
- * @(#) StudentCourse.java
- */
-
 package lt.dopamino.gamifiedcourse.Model;
 
+import lombok.Getter;
+import lombok.Setter;
+
+import javax.persistence.*;
+
+@Entity
+@Getter
+@Setter
 public class StudentCourse
 {
-	private double progresas;
+	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	private Integer id;
+
+	private double progress;
 	
-	private double ivertinimas;
+	private double evaluation;
 	
-	private boolean arVertino;
-	
-	public void updateStudentCourse( )
-	{
-		
-	}
-	
-	public void selectStudentCourse( )
-	{
-		
-	}
-	
-	public void selectCourseRating( )
-	{
-		
-	}
-	
-	
+	private boolean isEvaluated;
+
+	@ManyToOne
+	private Student student;
+
+	@ManyToOne
+	private Course course;
 }

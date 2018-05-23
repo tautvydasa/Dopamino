@@ -1,94 +1,39 @@
-/**
- * @(#) Course.java
- */
-
 package lt.dopamino.gamifiedcourse.Model;
 
-import java.util.Date;
+import lombok.Getter;
+import lombok.Setter;
 
+import javax.persistence.*;
+import java.util.Date;
+import java.util.List;
+
+@Entity
+@Getter
+@Setter
 public class Course
 {
-	private String pavadinimas;
-	
-	private double kaina;
-	
-	private Date data;
-	
-	private int vertinimoSuma;
-	
-	private int vertintojuKiekis;
-	
-	private boolean arMatomas;
+    @Id
+    @GeneratedValue(strategy=GenerationType.AUTO)
+    private Integer id;
 
-	public void selectCourses( )
-	{
-		
-	}
+	private String name;
 	
-	public void insertRate( )
-	{
-		
-	}
+	private double price;
 	
-	public void selectCourse( )
-	{
-		
-	}
+	private Date date;
 	
-	public void insertCourse( )
-	{
-		
-	}
+	private int voteSum;
 	
-	public void updateCourse( )
-	{
-		
-	}
+	private int votersCount;
 	
-	public void deleteCourse( )
-	{
-		
-	}
-	
-	public void selectCourseList( )
-	{
-		
-	}
-	
-	public void updateStatus( )
-	{
-		
-	}
-	
-	public void selectPointsFormula( )
-	{
-		
-	}
-	
-	public void selectFilterCourses( )
-	{
-		
-	}
-	
-	public void selectSearchData( )
-	{
-		
-	}
-	
-	public void selectCoursePrice( )
-	{
-		
-	}
-	
-	public void selectCoursesData( )
-	{
-		
-	}
-	
-	public void selectCourseData( )
-	{
-		
-	}
-	
-	
+	private boolean isVisible;
+
+    @ManyToOne
+	private Teacher teacher;
+
+    @OneToMany(mappedBy = "course")
+    private List<StudentCourse> studentCourses;
+
+    @OneToMany(mappedBy = "course")
+    private List<CourseSection> courseSections;
 }

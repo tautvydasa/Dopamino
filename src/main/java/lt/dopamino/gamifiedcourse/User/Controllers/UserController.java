@@ -2,7 +2,7 @@
  * @(#) UserController.java
  */
 
-package lt.dopamino.gamifiedcourse.User;
+package lt.dopamino.gamifiedcourse.User.Controllers;
 
 import org.springframework.stereotype.Controller;
 

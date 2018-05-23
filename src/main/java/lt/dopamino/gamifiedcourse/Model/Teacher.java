@@ -1,18 +1,29 @@
-/**
- * @(#) Teacher.java
- */
-
 package lt.dopamino.gamifiedcourse.Model;
 
-public class Teacher extends User
+import lombok.Getter;
+import lombok.Setter;
+
+import javax.persistence.*;
+import java.util.List;
+
+@Entity
+@Getter
+@Setter
+public class Teacher
 {
-	private String vardas;
+    @Id
+    @GeneratedValue(strategy=GenerationType.AUTO)
+    private Integer id;
+
+	private String firstName;
 	
-	private String pavarde;
+	private String lastName;
 	
-	private int telefonoNumeris;
-	
-	private int turimiTaskai;
-	
-	
+	private String phoneNumber;
+
+	@OneToOne
+	private Student student;
+
+	@OneToMany(mappedBy = "teacher")
+	private List<Course> courses;
 }

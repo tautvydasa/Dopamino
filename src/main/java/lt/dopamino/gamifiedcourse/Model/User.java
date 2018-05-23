@@ -1,105 +1,48 @@
-/**
- * @(#) User.java
- */
-
 package lt.dopamino.gamifiedcourse.Model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import lombok.Getter;
+import lombok.Setter;
 
-@Entity
-public class User
-{
-	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
-	private Integer id;
+import javax.persistence.MappedSuperclass;
 
-	private String slapyvardis;
+@Getter
+@Setter
+@MappedSuperclass
+public class User /*implements UserDetails */{
 
-	private String elpastas;
+    private String nickname;
 
-	private String slaptazodis;
+    private String email;
 
-	public Integer getId() {
-		return id;
-	}
+    private String password;
+/*
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return null;
+    }
 
-	public void setId(Integer id) {
-		this.id = id;
-	}
+    @Override
+    public String getUsername() {
+        return nickname;
+    }
 
-	public String getSlapyvardis() {
-		return slapyvardis;
-	}
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
 
-	public void setSlapyvardis(String slapyvardis) {
-		this.slapyvardis = slapyvardis;
-	}
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
 
-	public String getElpastas() {
-		return elpastas;
-	}
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
 
-	public void setElpastas(String elpastas) {
-		this.elpastas = elpastas;
-	}
-
-	public String getSlaptazodis() {
-		return slaptazodis;
-	}
-
-	public void setSlaptazodis(String slaptazodis) {
-		this.slaptazodis = slaptazodis;
-	}
-
-
-	//-------------------------------------------------------------
-	public void selectPermissions( )
-	{
-		
-	}
-	
-	public void selectUsersData( )
-	{
-		
-	}
-	
-	public void selectUserData( )
-	{
-		
-	}
-	
-	public void selectUserList( )
-	{
-		
-	}
-	
-	public void updatePermissionsData( )
-	{
-		
-	}
-	
-	public void selectPoints( )
-	{
-		
-	}
-	
-	public void removePoints( )
-	{
-		
-	}
-	
-	public void insertRegisterData( )
-	{
-		
-	}
-	
-	public void updateUserData( )
-	{
-		
-	}
-	
-	
+    @Override
+    public boolean isEnabled() {
+        return true;
+    }*/
 }
