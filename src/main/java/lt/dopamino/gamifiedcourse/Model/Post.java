@@ -4,35 +4,34 @@
 
 package lt.dopamino.gamifiedcourse.Model;
 
-import java.util.Date;
+import lombok.Getter;
+import lombok.Setter;
 
+import javax.persistence.*;
+import java.util.Date;
+import java.util.List;
+
+@Entity
+@Getter
+@Setter
 public class Post
 {
-	private String pavadinimas;
+	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	private Integer id;
+
+	private String name;
 	
-	private String aprasas;
+	private String description;
 	
-	private Date data;
-	
-	public void deletePostData( )
-	{
-		
-	}
-	
-	public void selectPostData( )
-	{
-		
-	}
-	
-	public void insertEditData( )
-	{
-		
-	}
-	
-	public void insertPost( )
-	{
-		
-	}
-	
-	
+	private Date date;
+
+	@ManyToOne
+	private Course course;
+
+	@ManyToOne
+	private Student student;
+
+	@OneToMany(mappedBy = "post")
+	private List<Comment> comments;
 }

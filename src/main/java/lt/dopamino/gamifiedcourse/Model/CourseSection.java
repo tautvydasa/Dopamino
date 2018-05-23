@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Getter
@@ -30,4 +31,10 @@ public class CourseSection
 
 	@ManyToOne
     private Course course;
+
+	@OneToMany(mappedBy = "courseSection")
+	private List<Result> results;
+
+	@OneToMany(mappedBy = "courseSection")
+	private List<Question> questions;
 }

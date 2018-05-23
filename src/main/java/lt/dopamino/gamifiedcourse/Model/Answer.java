@@ -5,31 +5,24 @@
 package lt.dopamino.gamifiedcourse.Model;
 
 
+import lombok.Getter;
+import lombok.Setter;
 
+import javax.persistence.*;
+
+@Entity
+@Getter
+@Setter
 public class Answer
 {
-	private String pavadinimas;
-	private boolean arTeisingas;
-	
-	public void selectAnswers( )
-	{
-		
-	}
-	
-	public void selectCorrectAnswer( )
-	{
-		
-	}
-	
-	public void insertAnswer( )
-	{
-		
-	}
-	
-	public void updateAnswers( )
-	{
-		
-	}
-	
-	
+	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	private Integer id;
+
+	private String text;
+
+	private boolean isCorrect;
+
+	@ManyToOne
+	private Question question;
 }

@@ -19,4 +19,16 @@ public class Student extends User
 
 	@OneToMany(mappedBy = "student")
 	private List<StudentCourse> studentCourses;
+
+    @OneToMany(mappedBy = "student")
+    private List<Result> results;
+
+    @OneToMany(mappedBy = "student")
+    private List<Post> posts;
+
+    @OneToMany(mappedBy = "student")
+    private List<Comment> comments;
+
+    @OneToMany(mappedBy = "student")
+    private List<Payment> payments;
 }
