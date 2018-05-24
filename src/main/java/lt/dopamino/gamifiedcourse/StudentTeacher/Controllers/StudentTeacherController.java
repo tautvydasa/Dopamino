@@ -52,6 +52,27 @@ public class StudentTeacherController {
         return "Teacher/Views/PurchasedCoursesPage";
     }
 
+    @GetMapping("/created_courses")
+    public String openCreatedCourses(Model model) {
+        Student student = (Student) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        model.addAttribute("student", student);
+        return "Teacher/Views/CreatedCoursesPage";
+    }
+
+    @GetMapping("/courses")
+    public String openCourses(Model model) {
+        Student student = (Student) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        model.addAttribute("student", student);
+        return "Teacher/Views/CoursesPage";
+    }
+
+    @GetMapping("/forum_courses")
+    public String openForumCourses(Model model) {
+        Student student = (Student) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        model.addAttribute("student", student);
+        return "Teacher/Views/ForumCoursesPage";
+    }
+
     public void submitRate() {
 
     }
