@@ -48,7 +48,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .anyRequest().permitAll()
                 .and()
-                .formLogin()
+                .formLogin().defaultSuccessUrl("/student_teacher", true)
                 .usernameParameter("nickname")
                 .and()
                 .logout()
