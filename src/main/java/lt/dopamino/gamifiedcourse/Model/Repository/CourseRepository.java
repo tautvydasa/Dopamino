@@ -11,4 +11,6 @@ import java.util.List;
 public interface CourseRepository extends JpaRepository<Course, Integer> {
     //@Query("select c from Course c join c.studentCourses sc join sc.")
     //List<Course> findCoursesByStudentId(int studentId);
+
+    List<Course> findAll();
 }

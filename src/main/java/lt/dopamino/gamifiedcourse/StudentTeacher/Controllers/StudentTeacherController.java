@@ -4,8 +4,10 @@
 
 package lt.dopamino.gamifiedcourse.StudentTeacher.Controllers;
 
+import lt.dopamino.gamifiedcourse.Model.Repository.CourseRepository;
 import lt.dopamino.gamifiedcourse.Model.Repository.StudentRepository;
 import lt.dopamino.gamifiedcourse.Model.Student;
+import lt.dopamino.gamifiedcourse.Model.Course;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -18,9 +20,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class StudentTeacherController {
 
     private final StudentRepository studentRepository;
+    private final CourseRepository courseRepository;
 
     @Autowired
-    public StudentTeacherController(StudentRepository studentRepository) {
+    public StudentTeacherController(StudentRepository studentRepository, CourseRepository courseRepository) {
+
+        this.courseRepository = courseRepository;
         this.studentRepository = studentRepository;
     }
 
@@ -54,22 +59,17 @@ public class StudentTeacherController {
 
     @GetMapping("/created_courses")
     public String openCreatedCourses(Model model) {
-        Student student = (Student) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        model.addAttribute("student", student);
         return "Teacher/Views/CreatedCoursesPage";
     }
 
     @GetMapping("/courses")
     public String openCourses(Model model) {
-        Student student = (Student) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        model.addAttribute("student", student);
+        model.addAttribute("allCourses", courseRepository.findAll());
         return "Teacher/Views/CoursesPage";
     }
 
     @GetMapping("/forum_courses")
     public String openForumCourses(Model model) {
-        Student student = (Student) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        model.addAttribute("student", student);
         return "Teacher/Views/ForumCoursesPage";
     }
 

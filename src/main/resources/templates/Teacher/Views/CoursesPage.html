@@ -1,10 +1,31 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Good Thymes Virtual Grocery</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" type="text/css" media="all"
+          href="../../../css/gtvg.css" th:href="@{/css/gtvg.css}" />
 </head>
+
 <body>
 
+<h1>Product list</h1>
+
+<table>
+    <tr>
+        <th>NAME</th>
+        <th>PRICE</th>
+    </tr>
+    <tr th:each="courses : ${allCourses}">
+        <td th:text="${courses.name}">Onions</td>
+        <td th:text="${courses.price}">2.41</td>
+    </tr>
+</table>
+
+
 </body>
+
 </html>
