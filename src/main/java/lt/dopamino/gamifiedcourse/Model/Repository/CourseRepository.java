@@ -13,4 +13,12 @@ public interface CourseRepository extends JpaRepository<Course, Integer> {
     //List<Course> findCoursesByStudentId(int studentId);
 
     List<Course> findAll();
+
+    Course findById(int id);
+
+    @Query("select m from Course m where m.id = ?1")
+    Course getCourseById(int id);
+
+    @Query("select m.price from Course m where m.id = ?1")
+    int getCoursePriceById(int id);
 }

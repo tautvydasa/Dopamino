@@ -7,12 +7,12 @@ package lt.dopamino.gamifiedcourse.StudentTeacher.Controllers;
 import lt.dopamino.gamifiedcourse.Model.Repository.CourseRepository;
 import lt.dopamino.gamifiedcourse.Model.Repository.StudentRepository;
 import lt.dopamino.gamifiedcourse.Model.Student;
-import lt.dopamino.gamifiedcourse.Model.Course;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
@@ -33,6 +33,7 @@ public class StudentTeacherController {
     public String openMainPage() {
         return "Teacher/Views/StudentTeacherMainPage";
     }
+
 
     public void openCourseTest() {
 
@@ -73,13 +74,26 @@ public class StudentTeacherController {
         return "Teacher/Views/ForumCoursesPage";
     }
 
+
     public void submitRate() {
 
     }
 
-    public void openCourse() {
-
+    @GetMapping(value = "/courses/{id}")
+    public String showPosts(Model model, @PathVariable("id") Integer id) {
+        Student student = (Student) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        model.addAttribute("student", student);
+        model.addAttribute("course", courseRepository.getCourseById(id));
+        return "Teacher/Views/CourseInfoPage";
     }
+
+
+
+/*    @GetMapping("/course/{id}")
+    public String openCourse(Model model, @PathVariable("id") int id) {
+        Course course = courseRepository.findById(id).get();
+        return "????";
+    }*/
 
     public void openCourseLeaderboard() {
 
