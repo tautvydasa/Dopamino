@@ -1,7 +1,3 @@
-/**
- * @(#) UserController.java
- */
-
 package lt.dopamino.gamifiedcourse.User.Controllers;
 
 import lt.dopamino.gamifiedcourse.Model.Repository.CourseRepository;
@@ -27,12 +23,14 @@ public class UserController
 
 	private final CourseRepository courseRepository;
 	private final StudentRepository studentRepository;
+	private final StudentCourseRepository studentCourseRepository;
 
 	@Autowired
-	public UserController(CourseRepository courseRepository, StudentRepository studentRepository) {
+	public UserController(CourseRepository courseRepository, StudentRepository studentRepository, StudentCourseRepository studentCourseRepository) {
 
 		this.courseRepository = courseRepository;
 		this.studentRepository = studentRepository;
+		this.studentCourseRepository = studentCourseRepository;
 	}
 
 	@GetMapping(value = "/buy/{id}/{userId}")
@@ -43,11 +41,12 @@ public class UserController
 			Course kursas = courseRepository.findById(id).get();
 			Student studentas = studentRepository.findById(student.getId()).get();
 			StudentCourse naujas = new StudentCourse();
-			naujas.setEvaluation(2.0);
-			naujas.setEvaluated(false);
-			naujas.setProgress(20.0);
+			//naujas.setEvaluation(2.0);
+			//naujas.setEvaluated(false);
+			//naujas.setProgress(20.0);
 			naujas.setCourse(kursas);
 			naujas.setStudent(studentas);
+			studentCourseRepository.saveAndFlush(naujas);
 			return "pavyko.html";
 		}
 		return "nepavyko.html";
