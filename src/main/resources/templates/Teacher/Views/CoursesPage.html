@@ -22,7 +22,7 @@
             <th>Įvertnimas</th>
         </tr>
         <tr th:each="courses : ${allCourses}">
-            <td><a th:href="@{'/student_teacher/courses/' + ${courses.id}}"><span th:text="${courses.name}"></span></a>
+            <td><a th:href="@{'/user/courses/' + ${courses.id}}"><span th:text="${courses.name}"></span></a>
             </td>
             <td th:text="${courses.price}">2.41</td>
             <div th:with="result=${courses.voteSum / courses.votersCount}">

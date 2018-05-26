@@ -18,194 +18,175 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequestMapping("/user")
-public class UserController
-{
+public class UserController {
 
-	private final CourseRepository courseRepository;
-	private final StudentRepository studentRepository;
-	private final StudentCourseRepository studentCourseRepository;
+    private final CourseRepository courseRepository;
+    private final StudentRepository studentRepository;
+    private final StudentCourseRepository studentCourseRepository;
 
-	@Autowired
-	public UserController(CourseRepository courseRepository, StudentRepository studentRepository, StudentCourseRepository studentCourseRepository) {
+    @Autowired
+    public UserController(CourseRepository courseRepository, StudentRepository studentRepository, StudentCourseRepository studentCourseRepository) {
 
-		this.courseRepository = courseRepository;
-		this.studentRepository = studentRepository;
-		this.studentCourseRepository = studentCourseRepository;
-	}
+        this.courseRepository = courseRepository;
+        this.studentRepository = studentRepository;
+        this.studentCourseRepository = studentCourseRepository;
+    }
 
-	@GetMapping(value = "/buy/{id}/{userId}")
-	public String buyCourse(Model model, @PathVariable("id") Integer id, @PathVariable("userId") Integer userId) {
-		Student student = (Student) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		if (courseRepository.getCoursePriceById(id) <= studentRepository.getStudentPointsById(userId))
-		{
-			Course kursas = courseRepository.findById(id).get();
-			Student studentas = studentRepository.findById(student.getId()).get();
-			StudentCourse naujas = new StudentCourse();
-			//naujas.setEvaluation(2.0);
-			//naujas.setEvaluated(false);
-			//naujas.setProgress(20.0);
-			naujas.setCourse(kursas);
-			naujas.setStudent(studentas);
-			studentCourseRepository.saveAndFlush(naujas);
-			return "pavyko.html";
-		}
-		return "nepavyko.html";
-	}
+    @GetMapping("/courses")
+    public String openCourses(Model model) {
+        model.addAttribute("allCourses", courseRepository.findAll());
+        return "Teacher/Views/CoursesPage";
+    }
 
-	public void deletePost( )
-	{
-		
-	}
-	
-	public void logout( )
-	{
-		
-	}
-	
-	public void openFilter( )
-	{
-		
-	}
-	
-	public void openSearch( )
-	{
-		
-	}
-	
-	public void submitSearch( )
-	{
-		
-	}
-	
-	public void validateSearchData( )
-	{
-		
-	}
-	
-	public void buyCourse( )
-	{
-		
-	}
-	
-	public void validatePurchase( )
-	{
-		
-	}
-	
-	public void openCourse( )
-	{
-		
-	}
-	
-	public void openCourses( )
-	{
-		
-	}
-	
-	public void openLogin( )
-	{
-		
-	}
-	
-	public void submitLogin( )
-	{
-		
-	}
-	
-	public void validateLogin( )
-	{
-		
-	}
-	
-	public void validatePermissions( )
-	{
-		
-	}
-	
-	public void editPost( )
-	{
-		
-	}
-	
-	public void submitEdit1( )
-	{
-		
-	}
-	
-	public void openRegister( )
-	{
-		
-	}
-	
-	public void submitRegister( )
-	{
-		
-	}
-	
-	public void validateRegisterData( )
-	{
-		
-	}
-	
-	public void createPost( )
-	{
-		
-	}
-	
-	public void submitPost( )
-	{
-		
-	}
-	
-	public void editProfile( )
-	{
-		
-	}
-	
-	public void submitEdit( )
-	{
-		
-	}
-	
-	public void validateEdit( )
-	{
-		
-	}
-	
-	public void openForum( )
-	{
-		
-	}
-	
-	public void selectCourse( )
-	{
-		
-	}
-	
-	public void openPost( )
-	{
-		
-	}
-	
-	public void openWriteComment( )
-	{
-		
-	}
-	
-	public void submitComment( )
-	{
-		
-	}
-	
-	public void submitFilter( )
-	{
-		
-	}
-	
-	public void openFAQ( )
-	{
-		
-	}
-	
-	
+    @GetMapping(value = "/courses/{id}")
+    public String showPosts(Model model, @PathVariable("id") Integer id) {
+        Student student = (Student) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        model.addAttribute("student", student);
+        model.addAttribute("course", courseRepository.getCourseById(id));
+        return "Teacher/Views/CourseInfoPage";
+    }
+
+    @GetMapping(value = "/buy/{id}/{userId}")
+    public String buyCourse(Model model, @PathVariable("id") Integer id, @PathVariable("userId") Integer userId) {
+        Student student = (Student) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if (courseRepository.getCoursePriceById(id) <= studentRepository.getStudentPointsById(userId) && userId == student.getId()) {
+            Course kursas = courseRepository.findById(id).get();
+            Student studentas = studentRepository.findById(student.getId()).get();
+            StudentCourse naujas = new StudentCourse();
+            //naujas.setEvaluation(2.0);
+            //naujas.setEvaluated(false);
+            //naujas.setProgress(20.0);
+            naujas.setCourse(kursas);
+            naujas.setStudent(studentas);
+            studentCourseRepository.saveAndFlush(naujas);
+            return "pavyko.html";
+        }
+        return "nepavyko.html";
+    }
+
+    public void deletePost() {
+
+    }
+
+    public void logout() {
+
+    }
+
+    public void openFilter() {
+
+    }
+
+    public void openSearch() {
+
+    }
+
+    public void submitSearch() {
+
+    }
+
+    public void validateSearchData() {
+
+    }
+
+    public void buyCourse() {
+
+    }
+
+    public void validatePurchase() {
+
+    }
+
+    public void openCourse() {
+
+    }
+
+    public void openCourses() {
+
+    }
+
+    public void openLogin() {
+
+    }
+
+    public void submitLogin() {
+
+    }
+
+    public void validateLogin() {
+
+    }
+
+    public void validatePermissions() {
+
+    }
+
+    public void editPost() {
+
+    }
+
+    public void submitEdit1() {
+
+    }
+
+    public void openRegister() {
+
+    }
+
+    public void submitRegister() {
+
+    }
+
+    public void validateRegisterData() {
+
+    }
+
+    public void createPost() {
+
+    }
+
+    public void submitPost() {
+
+    }
+
+    public void editProfile() {
+
+    }
+
+    public void submitEdit() {
+
+    }
+
+    public void validateEdit() {
+
+    }
+
+    public void openForum() {
+
+    }
+
+    public void selectCourse() {
+
+    }
+
+    public void openPost() {
+
+    }
+
+    public void openWriteComment() {
+
+    }
+
+    public void submitComment() {
+
+    }
+
+    public void submitFilter() {
+
+    }
+
+    public void openFAQ() {
+
+    }
+
+
 }

@@ -72,11 +72,6 @@ public class StudentTeacherController {
         return "Teacher/Views/CreatedCoursesPage";
     }
 
-    @GetMapping("/courses")
-    public String openCourses(Model model) {
-        return "Teacher/Views/CoursesPage";
-    }
-
     @GetMapping("/courses_forum")
     public String openCoursesForum(Model model) {
         model.addAttribute("allCourses", courseRepository.findAll());
