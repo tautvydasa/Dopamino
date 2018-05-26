@@ -14,22 +14,7 @@
 
 
 <center>
-    <h1>Sukurti Kursai</h1>
-    <table>
-        <tr>
-            <th>Pavadinimas</th>
-            <th>Kaina</th>
-            <th>Įvertinimas</th>
-        </tr>
-        <tr th:each="courses : ${allCreatedCourses}">
-            <td><a th:href="@{'/stu/courses/' + ${courses.id}}"><span th:text="${courses.name}"></span></a></td>
-            <td th:text="${courses.price}">2.41</td>
-            <div th:with="result=${courses.voteSum / courses.votersCount}">
-                <td th:text="${result}">5</td>
-            </div>
-        </tr>
-    </table>
-    <a class="btn btn-primary" href="/student_teacher/create_course" role="button">Pridėti kursą</a>
+    <h1>Sukurti Kursą</h1>
 </center>
 
 </body>
