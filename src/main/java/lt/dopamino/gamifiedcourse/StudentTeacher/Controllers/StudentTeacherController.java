@@ -8,7 +8,10 @@ import lt.dopamino.gamifiedcourse.Model.Comment;
 import lt.dopamino.gamifiedcourse.Model.Post;
 import lt.dopamino.gamifiedcourse.Model.Repository.*;
 import lt.dopamino.gamifiedcourse.Model.Student;
+
 import lt.dopamino.gamifiedcourse.Model.StudentCourse;
+import lt.dopamino.gamifiedcourse.Model.Teacher;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -29,21 +32,29 @@ public class StudentTeacherController {
 
     private final CommentRepository commentRepository;
 
+
     private final StudentCourseRepository studentCourseRepository;
 
     private final CourseSectionRepository courseSectionRepository;
 
     private final QuestionRepository questionRepository;
 
+    private final TeacherRepository teacherRepository;
+
     @Autowired
-    public StudentTeacherController(StudentRepository studentRepository, PostRepository postRepository, CourseRepository courseRepository, CommentRepository commentRepository, StudentCourseRepository studentCourseRepository, CourseSectionRepository courseSectionRepository, QuestionRepository questionRepository) {
+    public StudentTeacherController(StudentRepository studentRepository, PostRepository postRepository, CourseRepository courseRepository, CommentRepository commentRepository, TeacherRepository teacherRepository, StudentCourseRepository studentCourseRepository, CourseSectionRepository courseSectionRepository, QuestionRepository questionRepository) {
+
         this.studentRepository = studentRepository;
         this.postRepository = postRepository;
         this.courseRepository = courseRepository;
         this.commentRepository = commentRepository;
+
         this.studentCourseRepository = studentCourseRepository;
         this.courseSectionRepository = courseSectionRepository;
         this.questionRepository = questionRepository;
+
+        this.teacherRepository = teacherRepository;
+
     }
 
     @GetMapping
@@ -77,8 +88,17 @@ public class StudentTeacherController {
     }
 
     @GetMapping("/created_courses")
-    public String openCreatedCourses(Model model) {
+    public String showCreatedCourses(Model model) {
+        Student student = (Student) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        Teacher teacher = teacherRepository.getTeacherByStudentId(student.getId());
+        model.addAttribute("allCreatedCourses", courseRepository.findAllByTeacherId(teacher.getId()));
         return "Teacher/Views/CreatedCoursesPage";
+    }
+
+    @GetMapping("/create_course")
+    public String showCreateCourse(Model model)
+    {
+        return "Teacher/Views/CreateEditCoursePage";
     }
 
     @GetMapping("/courses_forum")
