@@ -9,4 +9,6 @@ import java.util.List;
 public interface PostRepository extends JpaRepository<Post, Integer> {
     @Query("select m from Post m where m.course.id = ?1")
     List<Post> getPostsById(int id);
+
+
 }

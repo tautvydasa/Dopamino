@@ -21,7 +21,7 @@ public class Question
 
 	private String text;
 
-	@OneToMany(mappedBy = "question")
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "question")
 	private List<Answer> answers;
 
 	@ManyToOne

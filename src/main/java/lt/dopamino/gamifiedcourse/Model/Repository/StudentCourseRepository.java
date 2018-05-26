@@ -4,6 +4,10 @@ import lt.dopamino.gamifiedcourse.Model.StudentCourse;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
+import java.util.List;
+
 public interface StudentCourseRepository extends JpaRepository<StudentCourse, Integer> {
+    @Query("select m from StudentCourse m where m.student.id = ?1")
+    List<StudentCourse> getStudentCourseById(int id);
 
 }

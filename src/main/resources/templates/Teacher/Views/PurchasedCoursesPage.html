@@ -1,15 +1,25 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Good Thymes Virtual Grocery</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" type="text/css" media="all"
+          href="../../../css/gtvg.css" th:href="@{/css/gtvg.css}" />
 </head>
 <body>
-Purchased courses page
-
-<div th:text="${student}">...</div>
-<!--<ul th:each="studentCourse : ${student.studentCourses}">-->
-    <!--<li th:text="${studentCourse.evaluation}">.....</li>-->
-<!--</ul>-->
+<center>
+    <h1>Jūsų kursai</h1>
+    <table>
+        <tr>
+            <th>Pavadinimas</th>
+            <th>Progresas</th>
+        </tr>
+        <tr th:each="studentCourse : ${studentCourses}">
+            <td><a th:href="@{'/student_teacher/courses/' + ${studentCourse.course.id}}"><span th:text="${studentCourse.course.name}"></span></a>
+            </td>
+            <td th:text="${studentCourse.progress}"></td>
+        </tr>
+    </table>
+</center>
 </body>
 </html>

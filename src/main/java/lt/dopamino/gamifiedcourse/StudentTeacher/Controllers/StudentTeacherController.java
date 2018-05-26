@@ -6,11 +6,9 @@ package lt.dopamino.gamifiedcourse.StudentTeacher.Controllers;
 
 import lt.dopamino.gamifiedcourse.Model.Comment;
 import lt.dopamino.gamifiedcourse.Model.Post;
-import lt.dopamino.gamifiedcourse.Model.Repository.CommentRepository;
-import lt.dopamino.gamifiedcourse.Model.Repository.CourseRepository;
-import lt.dopamino.gamifiedcourse.Model.Repository.PostRepository;
-import lt.dopamino.gamifiedcourse.Model.Repository.StudentRepository;
+import lt.dopamino.gamifiedcourse.Model.Repository.*;
 import lt.dopamino.gamifiedcourse.Model.Student;
+import lt.dopamino.gamifiedcourse.Model.StudentCourse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -31,12 +29,21 @@ public class StudentTeacherController {
 
     private final CommentRepository commentRepository;
 
+    private final StudentCourseRepository studentCourseRepository;
+
+    private final CourseSectionRepository courseSectionRepository;
+
+    private final QuestionRepository questionRepository;
+
     @Autowired
-    public StudentTeacherController(StudentRepository studentRepository, PostRepository postRepository, CourseRepository courseRepository, CommentRepository commentRepository) {
+    public StudentTeacherController(StudentRepository studentRepository, PostRepository postRepository, CourseRepository courseRepository, CommentRepository commentRepository, StudentCourseRepository studentCourseRepository, CourseSectionRepository courseSectionRepository, QuestionRepository questionRepository) {
         this.studentRepository = studentRepository;
         this.postRepository = postRepository;
         this.courseRepository = courseRepository;
         this.commentRepository = commentRepository;
+        this.studentCourseRepository = studentCourseRepository;
+        this.courseSectionRepository = courseSectionRepository;
+        this.questionRepository = questionRepository;
     }
 
     @GetMapping
@@ -44,8 +51,10 @@ public class StudentTeacherController {
         return "Teacher/Views/StudentTeacherMainPage";
     }
 
-    public void openCourseTest() {
-
+    @GetMapping(value = "/courses/{id}/{id2}/task")
+    public String openCourseTest(Model model, @PathVariable("id") Integer id, @PathVariable("id2") Integer id2) {
+        model.addAttribute("allQuestions", questionRepository.getQuestionsById(id2));
+        return "Teacher/Views/CourseSectionTestPage";
     }
 
     public void submitAnswer() {
@@ -63,7 +72,7 @@ public class StudentTeacherController {
     @GetMapping("/purchased_courses")
     public String openPurchasedCourses(Model model) {
         Student student = (Student) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        model.addAttribute("student", student);
+        model.addAttribute("studentCourses", studentCourseRepository.getStudentCourseById(student.getId()));
         return "Teacher/Views/PurchasedCoursesPage";
     }
 
@@ -113,8 +122,11 @@ public class StudentTeacherController {
 
     }
 
-    public void openCourse() {
-
+    @GetMapping(value = "/courses/{id}")
+    public String openCourse(Model model, @PathVariable("id") Integer id) {
+        model.addAttribute("course", courseRepository.findById(id).get());
+        model.addAttribute("allSections", courseSectionRepository.getCourseSectionsById(id));
+        return "Teacher/Views/CoursePage";
     }
 
     public void openCourseLeaderboard() {
