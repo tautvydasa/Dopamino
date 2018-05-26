@@ -6,12 +6,11 @@ package lt.dopamino.gamifiedcourse.StudentTeacher.Controllers;
 
 import lt.dopamino.gamifiedcourse.Model.Comment;
 import lt.dopamino.gamifiedcourse.Model.Post;
-import lt.dopamino.gamifiedcourse.Model.Repository.*;
+import lt.dopamino.gamifiedcourse.Model.Repository.CommentRepository;
+import lt.dopamino.gamifiedcourse.Model.Repository.CourseRepository;
+import lt.dopamino.gamifiedcourse.Model.Repository.PostRepository;
+import lt.dopamino.gamifiedcourse.Model.Repository.StudentRepository;
 import lt.dopamino.gamifiedcourse.Model.Student;
-
-import lt.dopamino.gamifiedcourse.Model.StudentCourse;
-import lt.dopamino.gamifiedcourse.Model.Teacher;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -32,29 +31,12 @@ public class StudentTeacherController {
 
     private final CommentRepository commentRepository;
 
-
-    private final StudentCourseRepository studentCourseRepository;
-
-    private final CourseSectionRepository courseSectionRepository;
-
-    private final QuestionRepository questionRepository;
-
-    private final TeacherRepository teacherRepository;
-
     @Autowired
-    public StudentTeacherController(StudentRepository studentRepository, PostRepository postRepository, CourseRepository courseRepository, CommentRepository commentRepository, TeacherRepository teacherRepository, StudentCourseRepository studentCourseRepository, CourseSectionRepository courseSectionRepository, QuestionRepository questionRepository) {
-
+    public StudentTeacherController(StudentRepository studentRepository, PostRepository postRepository, CourseRepository courseRepository, CommentRepository commentRepository) {
         this.studentRepository = studentRepository;
         this.postRepository = postRepository;
         this.courseRepository = courseRepository;
         this.commentRepository = commentRepository;
-
-        this.studentCourseRepository = studentCourseRepository;
-        this.courseSectionRepository = courseSectionRepository;
-        this.questionRepository = questionRepository;
-
-        this.teacherRepository = teacherRepository;
-
     }
 
     @GetMapping
@@ -62,10 +44,8 @@ public class StudentTeacherController {
         return "Teacher/Views/StudentTeacherMainPage";
     }
 
-    @GetMapping(value = "/courses/{id}/{id2}/task")
-    public String openCourseTest(Model model, @PathVariable("id") Integer id, @PathVariable("id2") Integer id2) {
-        model.addAttribute("allQuestions", questionRepository.getQuestionsById(id2));
-        return "Teacher/Views/CourseSectionTestPage";
+    public void openCourseTest() {
+
     }
 
     public void submitAnswer() {
@@ -83,22 +63,13 @@ public class StudentTeacherController {
     @GetMapping("/purchased_courses")
     public String openPurchasedCourses(Model model) {
         Student student = (Student) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        model.addAttribute("studentCourses", studentCourseRepository.getStudentCourseById(student.getId()));
+        model.addAttribute("student", student);
         return "Teacher/Views/PurchasedCoursesPage";
     }
 
     @GetMapping("/created_courses")
-    public String showCreatedCourses(Model model) {
-        Student student = (Student) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        Teacher teacher = teacherRepository.getTeacherByStudentId(student.getId());
-        model.addAttribute("allCreatedCourses", courseRepository.findAllByTeacherId(teacher.getId()));
+    public String openCreatedCourses(Model model) {
         return "Teacher/Views/CreatedCoursesPage";
-    }
-
-    @GetMapping("/create_course")
-    public String showCreateCourse(Model model)
-    {
-        return "Teacher/Views/CreateEditCoursePage";
     }
 
     @GetMapping("/courses_forum")
@@ -142,11 +113,8 @@ public class StudentTeacherController {
 
     }
 
-    @GetMapping(value = "/courses/{id}")
-    public String openCourse(Model model, @PathVariable("id") Integer id) {
-        model.addAttribute("course", courseRepository.findById(id).get());
-        model.addAttribute("allSections", courseSectionRepository.getCourseSectionsById(id));
-        return "Teacher/Views/CoursePage";
+    public void openCourse() {
+
     }
 
     public void openCourseLeaderboard() {

@@ -15,9 +15,8 @@
 <table>
     <tr th:each="courses : ${allCourses}">
         <td th:text="${courses.id}"></td>
-        <td th:text="${courses.name}"></td>
         <td>
-            <a th:href="@{'/student_teacher/courses_forum' + ${courses.id}}">Pasirinkti kursą</a>
+            <a th:text="${courses.name}" th:href="@{'/user/courses_forum/' + ${courses.id}}"></a>
         </td>
     </tr>
 </table>

@@ -11,9 +11,9 @@ public class MainController {
         return "redirect:/login";
     }
 
-    @GetMapping("/Kursai")
-    public String kursai() {
-        return "Kursai";
+    @GetMapping("/main")
+    public String openMainPage() {
+        return "Teacher/Views/MainPage";
     }
 
 }

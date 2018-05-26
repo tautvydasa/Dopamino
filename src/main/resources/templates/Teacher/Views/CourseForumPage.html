@@ -1,13 +1,14 @@
 <!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
 
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org">
 
 <head>
-    <title>Good Thymes Virtual Grocery</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <link rel="stylesheet" type="text/css" media="all"
-          href="../../../css/gtvg.css" th:href="@{/css/gtvg.css}" />
+    <title>Bootstrap Example</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
 
 <body>
@@ -15,14 +16,15 @@
 <table>
     <tr th:each="posts : ${allPosts}">
         <td th:text="${posts.id}"></td>
-        <td th:text="${posts.name}"></td>
         <!--<a th:href="@{'/student_teacher/courses_forum/' + ${course.id} + '/delete/' + ${posts.id}" class="btn btn-danger">Delete</a>-->
         <td>
-            <a th:href="@{'/student_teacher/courses_forum/' + ${course.id} + '/' + ${posts.id}}">Peržiūrėti temą</a>
+            <a th:text="${posts.name}" th:href="@{'/user/courses_forum/' + ${course.id} + '/' + ${posts.id}}"></a>
+            <a class="btn btn-success" th:href="@{'/user/courses_forum/' + ${course.id} + '/' + ${posts.id} + '/edit'}">Redaguoti</a>
+            <a class="btn btn-danger" th:href="@{'/user/courses_forum/' + ${course.id} + '/' + ${posts.id} + '/delete'}">Šalinti</a>
         </td>
     </tr>
 </table>
-
+<a class="btn btn-primary" th:ba th:href="@{'/user/courses_forum/' + ${course.id} + '/create_post'}">Prideti klausimą</a>
 
 </body>
 

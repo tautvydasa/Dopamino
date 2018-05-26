@@ -48,12 +48,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .anyRequest().permitAll()
                 .and()
-                .formLogin().defaultSuccessUrl("/student_teacher", true)
+                .formLogin().defaultSuccessUrl("/main", true)
                 .usernameParameter("nickname")
-                .defaultSuccessUrl("/student_teacher", true)
+                .defaultSuccessUrl("/main", true)
                 .and()
                 .logout()
                 .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-                .logoutSuccessUrl("/");
+                .logoutSuccessUrl("/")
+                .and()
+                .csrf().disable();
     }
 }
