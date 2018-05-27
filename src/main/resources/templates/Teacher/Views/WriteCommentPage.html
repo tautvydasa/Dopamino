@@ -1,6 +1,10 @@
-<!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org">
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+
 <head>
+    <title>Kursas</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -8,12 +12,20 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
 <body>
-<h1>Comment</h1>
-<form action="#" th:action="@{'/user/courses_forum/' + ${course.id} + '/' + ${post.id} + '/insert_comment'}">
-    <div class="form-group">
-        <input type="text" class="form-control" name="text">
-    </div>
-    <button type="submit" class="btn btn-default">Submit</button>
-</form>
+<center>
+    <div align="right"><a href="/logout"><b>LOGOUT<b></b></b></a></div>
+    <a class="btn btn-primary" href="/student_teacher/purchased_courses" role="button">Purchased courses</a>
+    <a class="btn btn-primary" href="/student_teacher/created_courses" role="button">Created courses</a>
+    <a class="btn btn-primary" href="/user/courses" role="button">Courses</a>
+    <a class="btn btn-primary" href="/user/courses_forum" role="button">Courses forum</a>
+
+    <h1>Comment</h1>
+    <form action="#" th:action="@{'/user/courses_forum/' + ${course.id} + '/' + ${post.id} + '/insert_comment'}">
+        <div class="form-group">
+            <input type="text" class="form-control" name="text">
+        </div>
+        <button type="submit" class="btn btn-default">Submit</button>
+    </form>
+</center>
 </body>
 </html>

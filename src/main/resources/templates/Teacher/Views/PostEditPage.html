@@ -1,8 +1,11 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
 <!DOCTYPE html>
 <html lang="en"
       xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.w3.org/1999/xhtml">
+
 <head>
+    <title>Kursas</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -10,6 +13,12 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
 <body>
+<center>
+    <div align="right"><a href="/logout"><b>LOGOUT<b></b></b></a></div>
+    <a class="btn btn-primary" href="/student_teacher/purchased_courses" role="button">Purchased courses</a>
+    <a class="btn btn-primary" href="/student_teacher/created_courses" role="button">Created courses</a>
+    <a class="btn btn-primary" href="/user/courses" role="button">Courses</a>
+    <a class="btn btn-primary" href="/user/courses_forum" role="button">Courses forum</a>
 
 <div layout:fragment="content">
     <h2>Update post</h2>
@@ -26,6 +35,6 @@
         <button type="submit" class="btn btn-default">Submit</button>
     </form>
 </div>
-
+</center>
 </body>
 </html>

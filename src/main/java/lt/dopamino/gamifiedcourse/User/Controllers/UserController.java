@@ -43,27 +43,38 @@ public class UserController {
         Student student = (Student) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         model.addAttribute("student", student);
         model.addAttribute("course", courseRepository.getCourseById(id));
+        if (studentCourseRepository.checkIfAlreadyPurchased(student.getId(), id) != null) {
+            model.addAttribute("patikrinimas", studentCourseRepository.checkIfAlreadyPurchased(student.getId(), id).getId());
+        } else {
+            model.addAttribute("patikrinimas", 0);
+        }
         return "Teacher/Views/CourseInfoPage";
     }
 
     @GetMapping(value = "/buy/{id}/{userId}")
-    public String buyCourse(Model model, @PathVariable("id") Integer id, @PathVariable("userId") Integer userId) {
+    public String buyCourse(Model model, @PathVariable("id") Integer id, @PathVariable("userId") Integer userId, @Valid Student studentoTaskai) {
         Student student = (Student) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         if (courseRepository.getCoursePriceById(id) <= studentRepository.getStudentPointsById(userId) && userId == student.getId()) {
             Course kursas = courseRepository.findById(id).get();
             Student studentas = studentRepository.findById(student.getId()).get();
             StudentCourse naujas = new StudentCourse();
-            //naujas.setEvaluation(2.0);
-            //naujas.setEvaluated(false);
-            //naujas.setProgress(20.0);
             naujas.setCourse(kursas);
             naujas.setStudent(studentas);
             studentCourseRepository.saveAndFlush(naujas);
-            return "pavyko.html";
+            studentoTaskai.setId(student.getId());
+            studentoTaskai.setEmail(student.getEmail());
+            studentoTaskai.setNickname(student.getNickname());
+            studentoTaskai.setPassword(student.getPassword());
+            studentoTaskai.setPoints(studentRepository.getStudentPointsById(userId) - courseRepository.getCoursePriceById(id));
+            studentRepository.save(studentoTaskai);
+            return "redirect:/user/courses/" + id;
         }
         return "nepavyko.html";
     }
 
+    //-------------------------------------------------------------------------------------------------------------
+    //-------------------------------------------------------------------------------------------------------------
+    //-------------------------------------------------------------------------------------------------------------
     @GetMapping(value = "/courses_forum/{id}")
     public String showForumPosts(Model model, @PathVariable("id") Integer id) {
         model.addAttribute("course", courseRepository.findById(id).get());
