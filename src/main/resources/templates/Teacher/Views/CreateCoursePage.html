@@ -33,8 +33,21 @@
         <div th:class="form-group" th:classappend="${#fields.hasErrors('description')}? 'has-error'">
             <label class="col-sm-2 control-label">Description</span></label>
             <div class="col-md-10">
-                <input type="text" class="form-control" th:field="*{description}"/></textarea>
+                <textarea input type="text" class="form-control" th:field="*{description}"/></textarea>
                 <span th:if="${#fields.hasErrors('description')}" th:errors="*{description}" th:class="help-block">Description error</span>
+            </div>
+        </div>
+        <div th:class="form-group" th:classappend="${#fields.hasErrors('price')}? 'has-error'">
+            <label class="col-sm-2 control-label">Price</span></label>
+            <div class="col-md-10">
+                <input type="text" class="form-control" th:field="*{price}"/>
+                <span th:if="${#fields.hasErrors('price')}" th:errors="*{price}" th:class="help-block">Price error</span>
+            </div>
+        </div>
+        <div th:class="form-group">
+            <label class="col-sm-2 control-label">Is Visible?</span></label>
+            <div class="col-md-1">
+                <input th:type="checkbox" class="form-control" th:checked="${isVisible}"/>
             </div>
         </div>
         <button type="submit" class="btn btn-primary pull-right">Submit</button>

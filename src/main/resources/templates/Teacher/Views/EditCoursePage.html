@@ -1,0 +1,65 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+
+<html xmlns:layout="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Kursas</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+<center>
+    <div align="right"><a href="/logout"><b>LOGOUT<b></b></b></a></div>
+    <a class="btn btn-primary" href="/student_teacher/purchased_courses" role="button">Purchased courses</a>
+    <a class="btn btn-primary" href="/student_teacher/created_courses" role="button">Created courses</a>
+    <a class="btn btn-primary" href="/user/courses" role="button">Courses</a>
+    <a class="btn btn-primary" href="/user/courses_forum" role="button">Courses forum</a>
+
+    <div layout:fragment="content">
+        <h1>RedaguotiKursą</h1>
+        <form class="form-horizontal" th:object="${course}" th:action="@{'/student_teacher/edited_course_submitted/' + ${course.id}}">
+            <input type="hidden" th:field="*{id}" />
+            <div th:class="form-group" th:classappend="${#fields.hasErrors('name')}? 'has-error'">
+                <label class="col-sm-2 control-label">Name</span></label>
+                <div class="col-md-10">
+                    <input type="text" class="form-control" th:field="*{name}"/>
+                    <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}" th:class="help-block">Name error</span>
+                </div>
+            </div>
+            <div th:class="form-group" th:classappend="${#fields.hasErrors('description')}? 'has-error'">
+                <label class="col-sm-2 control-label">Description</span></label>
+                <div class="col-md-10">
+                    <textarea input type="text" class="form-control" th:field="*{description}"/></textarea>
+                    <span th:if="${#fields.hasErrors('description')}" th:errors="*{description}" th:class="help-block">Description error</span>
+                </div>
+            </div>
+            <div th:class="form-group" th:classappend="${#fields.hasErrors('price')}? 'has-error'">
+                <label class="col-sm-2 control-label">Price</span></label>
+                <div class="col-md-10">
+                    <input type="text" class="form-control" th:field="*{price}"/>
+                    <span th:if="${#fields.hasErrors('description')}" th:errors="*{price}" th:class="help-block">Price error</span>
+                </div>
+            </div>
+            <div th:class="form-group">
+                <label class="col-sm-2 control-label">Is Visible?</span></label>
+                <div class="col-md-1">
+                    <input th:type="checkbox" class="form-control" th:checked="${isVisible}"/>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary pull-right">Submit</button>
+        </form>
+    </div>
+</center>
+</body>
+
+</html>
+
+<!--<form action="#" th:action="@{/CourseInfoPage.html}" th:object="" method="post">
+    <input type="text" th:field="${courses.name}" />
+    <input type="submit" />
+</form>-->
+<!-- <td th:text="${courses.name}">Onions</td> -->

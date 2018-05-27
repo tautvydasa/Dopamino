@@ -24,18 +24,24 @@
     <table>
         <tr>
             <th>Pavadinimas</th>
+            <th>Aprašymas</th>
             <th>Kaina</th>
             <th>Įvertinimas</th>
+            <th>Redaguoti</th>
+            <th>Pašalinti</th>
         </tr>
         <tr th:each="courses : ${allCreatedCourses}">
             <td><a th:href="@{'/stu/courses/' + ${courses.id}}"><span th:text="${courses.name}"></span></a></td>
-            <td th:text="${courses.price}">2.41</td>
+            <td th:text="${courses.description}"></td>
+            <td th:text="${courses.price}"></td>
             <div th:with="result=${courses.voteSum / courses.votersCount}">
-                <td th:text="${result}">5</td>
+                <td th:text="${result}"></td>
             </div>
+            <td><a class="btn btn-success" th:href="@{'/student_teacher/edit_course/' + ${courses.id}}" role="button">Redaguoti kursą</a></td>
+            <td><a class="btn btn-danger" th:href="@{'/student_teacher/remove_course/' + ${courses.id}}" role="button">Pašalinti kursą</a></td>
         </tr>
     </table>
-    <a class="btn btn-primary" th:href="@{'/student_teacher/create_edit_course/' + ${teacher.id}}" role="button">Pridėti kursą</a>
+    <a class="btn btn-primary" th:href="@{'/student_teacher/create_course'}" role="button">Pridėti kursą</a>
 </center>
 
 </body>

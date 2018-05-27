@@ -6,15 +6,11 @@ package lt.dopamino.gamifiedcourse.StudentTeacher.Controllers;
 
 import lt.dopamino.gamifiedcourse.Model.*;
 import lt.dopamino.gamifiedcourse.Model.Repository.*;
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @Controller
 @RequestMapping("/student_teacher")
@@ -87,16 +83,16 @@ public class StudentTeacherController {
         return "Teacher/Views/CreatedCoursesPage";
     }
 
-    @GetMapping("/create_edit_course/{id}")
-    public String showCreateCourse(Model model, @PathVariable("id") Integer id)
+    @GetMapping("/create_course")
+    public String showCreateCourse(Model model)
     {
         model.addAttribute("course", new Course());
-        model.addAttribute("teacher", teacherRepository.getTeacherById(id));
-        return "Teacher/Views/CreateEditCoursePage";
+        model.addAttribute("isVisible", true);
+        return "Teacher/Views/CreateCoursePage";
     }
 
     @GetMapping(value = "/created_course_submitted")
-    public String submitCourse(Model model, @RequestParam String name, @RequestParam String description)
+    public String submitCreatedCourse(Model model, @RequestParam String name, @RequestParam String description, @RequestParam String price, @RequestParam (defaultValue="false") boolean isVisible)
     {
         java.util.Date date = new java.util.Date();
         Student student = (Student) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -105,61 +101,47 @@ public class StudentTeacherController {
         course.setName(name);
         course.setDescription(description);
         course.setDate(date);
-        course.setPrice(12);
+        course.setPrice(Double.parseDouble(price));
         course.setTeacher(teacher);
         course.setVoteSum(5);
-        course.setVisible(true);
-        course.setVotersCount(5);
+        course.setVisible(isVisible);
+        course.setVotersCount(1);
         courseRepository.saveAndFlush(course);
         return "redirect:/student_teacher/created_courses/";
     }
 
-    @GetMapping("/courses_forum")
-    public String openCoursesForum(Model model) {
-        model.addAttribute("allCourses", courseRepository.findAll());
-        return "Teacher/Views/CoursesForumPage";
+    @GetMapping("/edit_course/{id}")
+    public String showEditCourse(Model model, @PathVariable("id") Integer id)
+    {
+        model.addAttribute("course", courseRepository.getCourseById(id));
+        model.addAttribute("isVisible", true);
+        model.addAttribute("teacher", teacherRepository.getTeacherById(id));
+        return "Teacher/Views/EditCoursePage";
     }
 
-    @GetMapping(value = "/courses_forum/{id}")
-    public String showPosts(Model model, @PathVariable("id") Integer id) {
-        model.addAttribute("course", courseRepository.findById(id).get());
-        model.addAttribute("allPosts", postRepository.getPostsById(id));
-        return "Teacher/Views/CourseForumPage";
-    }
-
-    @GetMapping(value = "/courses_forum/{id}/{id2}")
-    public String showPost(Model model, @PathVariable("id") Integer id, @PathVariable("id2") Integer id2) {
-        model.addAttribute("course", courseRepository.findById(id).get());
-        model.addAttribute("post", postRepository.findById(id2).get());
-        model.addAttribute("allComments", commentRepository.getCommentsById(id2));
-        return "Teacher/Views/PostPage";
-    }
-
-    @GetMapping("/courses_forum/{id}/{id2}/write_comment")
-    public String writeComment(Model model, @PathVariable("id") Integer id, @PathVariable("id2") Integer id2) {
-        model.addAttribute("course", courseRepository.findById(id).get());
-        model.addAttribute("post", postRepository.findById(id2).get());
+    @GetMapping(value = "/edited_course_submitted/{id}")
+    public String submitEditedCourse(Model model, @PathVariable("id") Integer id, @RequestParam String name, @RequestParam String description, @RequestParam String price, @RequestParam(defaultValue="true") boolean isVisible)
+    {
+        java.util.Date date = new java.util.Date();
         Student student = (Student) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        model.addAttribute("comment", new Comment());
-        return "Teacher/Views/WriteCommentPage";
+        Teacher teacher = teacherRepository.getTeacherByStudentId(student.getId());
+        Course course = courseRepository.findById(id).get();
+        course.setName(name);
+        course.setDescription(description);
+        course.setDate(date);
+        course.setPrice(Double.parseDouble(price));
+        course.setTeacher(teacher);
+        course.setVoteSum(5);
+        course.setVisible(isVisible);
+        course.setVotersCount(5);
+        courseRepository.save(course);
+        return "redirect:/student_teacher/created_courses/";
     }
 
-    @GetMapping(value = "/courses_forum/{id}/delete/{id2}")
-    public String deletePost(Model model, @PathVariable("id2") Integer id2) {
-        System.out.println(id2);
-        System.out.println("test");
-        return "redirect:/courses_forum/{id}";
-    }
-
-    public void submitRate() {
-
-    }
-
-    @GetMapping(value = "/courses/{id}")
-    public String openCourse(Model model, @PathVariable("id") Integer id) {
-        model.addAttribute("course", courseRepository.findById(id).get());
-        model.addAttribute("allSections", courseSectionRepository.getCourseSectionsById(id));
-        return "Teacher/Views/CoursePage";
+    @GetMapping(value = "/remove_course/{id}")
+    public String deleteCourse(@PathVariable("id") Integer courseId) {
+        courseRepository.deleteById(courseId);
+        return "redirect:/student_teacher/created_courses/";
     }
 
     public void openCourseLeaderboard() {
