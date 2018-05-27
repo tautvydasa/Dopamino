@@ -4,20 +4,43 @@
       xmlns:th="http://www.thymeleaf.org">
 
 <head>
-    <title>Good Thymes Virtual Grocery</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <link rel="stylesheet" type="text/css" media="all"
-          href="../../../css/gtvg.css" th:href="@{/css/gtvg.css}"/>
+    <title>Kursas</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
-
 <body>
 <center>
-    <h1>Product list</h1>
+    <div align="right"><a href="/logout"><b>LOGOUT<b></b></b></a></div>
+    <a class="btn btn-primary" href="/student_teacher/purchased_courses" role="button">Purchased courses</a>
+    <a class="btn btn-primary" href="/student_teacher/created_courses" role="button">Created courses</a>
+    <a class="btn btn-primary" href="/user/courses" role="button">Courses</a>
+    <a class="btn btn-primary" href="/user/courses_forum" role="button">Courses forum</a>
+</center>
+<center>
+    <h1>Kurso aprašymas</h1>
     Pavadinimas: <span th:text="${course.name}"></span><br>
     Aprašymas: <span th:text="${course.description}"></span><br>
     Kaina: <span th:text="${course.price}"></span>
-    <br>
-    <b><a th:href="@{'/user/buy/' + ${course.id} + '/' + ${student.id}}">Įsigyti</a></b>
+    <br><br>
+    <div th:with="checkas = ${patikrinimas}">
+        <div th:if="${checkas} > 0">
+            <b>Kursas jau įsigytas!</b>
+        </div>
+        <div th:unless="${checkas} > 0">
+            <div th:if="${course.price} <= ${student.points}">
+                <b><a th:href="@{'/user/buy/' + ${course.id} + '/' + ${student.id}}">Įsigyti</a></b>
+            </div>
+            <div th:unless="${course.price} <= ${student.points}">
+                <b>Nepakanka taškų!</b>
+            </div>
+        </div>
+        <br><br>
+        <a class="btn btn-primary" th:href="@{/user/courses}" role="button">Grįžti į kursų sąrašą.</a>
+    </div>
+
 </center>
 </body>
 
