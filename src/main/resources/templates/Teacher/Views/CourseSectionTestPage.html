@@ -9,9 +9,37 @@
 <body>
 <center>
     <h1>Testas</h1>
-
-
-    <!--<b><a th:href="@{'/user/buy/' + ${course.id} + '/' + ${student.id}}">Įsigyti</a></b>-->
+    <div th:each="question,iter : ${allQuestions}" th:id="${iter.index}">
+    <p th:text="${question.text}"></p>
+        <form>
+            <label th:each="answer : ${question.answers}">
+                <input type="radio" th:name="answer + ${iter.index}" th:value="${answer.isCorrect()}"><span th:text="${answer.text}"></span><br>
+            </label>
+        </form>
+    </div>
+    <input id="submit" type="button" value="Kitas klausimas">
 </center>
 </body>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script>
+    $(document).ready(function() {
+        var id = 0;
+        var teisingi = 0;
+        $('div').hide();
+        $("#" + id).show();
+        $("#submit").click(function() {
+            var selectedButton = 'input[name="answer' + id + '"]:checked';
+            var answer = document.querySelector(selectedButton).value;
+            if(answer === "true"){
+                teisingi++;
+            }
+
+            $("#" + id).hide();
+            id++;
+            $("#" + id).show();
+
+        });
+    });
+</script>
 </html>

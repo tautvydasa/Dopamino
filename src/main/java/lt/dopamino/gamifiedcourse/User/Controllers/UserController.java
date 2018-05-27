@@ -124,7 +124,7 @@ public class UserController {
     }
 
     @GetMapping(value = "/courses_forum/{id}/insert_post")
-    public String insertPost(@PathVariable("id") Integer courseId, @RequestParam String name, @RequestParam String description) {
+    public String submitPost(@PathVariable("id") Integer courseId, @RequestParam String name, @RequestParam String description) {
         Student student = (Student) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         java.util.Date date = new java.util.Date();
         Post post = new Post();
