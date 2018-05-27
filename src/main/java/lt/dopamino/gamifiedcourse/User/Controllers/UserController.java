@@ -82,6 +82,7 @@ public class UserController {
     @GetMapping(value = "/courses_forum/{id}/{id2}/delete")
     public String deletePost(@PathVariable("id") Integer courseId, @PathVariable("id2") Integer postId) {
         postRepository.deleteById(postId);
+        commentRepository.deleteAllByPost(postId);
         return "redirect:/user/courses_forum/" + courseId;
     }
 
