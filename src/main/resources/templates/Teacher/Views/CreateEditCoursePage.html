@@ -1,6 +1,6 @@
 <!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
 
-<html xmlns="http://www.w3.org/1999/xhtml"
+<html xmlns:layout="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org">
 
 <head>
@@ -12,11 +12,29 @@
 
 <body>
 
+<div layout:fragment="content">
 
-<center>
     <h1>Sukurti Kursą</h1>
-</center>
+    <form class="form-horizontal" th:object="${course}" th:action="@{'/student_teacher/created_course_submitted'}">
+        <input type="hidden" th:field="*{id}" />
+        <div th:class="form-group" th:classappend="${#fields.hasErrors('name')}? 'has-error'">
+            <label class="col-sm-2 control-label">Name</span></label>
+            <div class="col-md-10">
+                <input type="text" class="form-control" th:field="*{name}"/>
+                <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}" th:class="help-block">Name error</span>
+            </div>
+        </div>
+        <div th:class="form-group" th:classappend="${#fields.hasErrors('description')}? 'has-error'">
+            <label class="col-sm-2 control-label">Description</span></label>
+            <div class="col-md-10">
+                <input type="text" class="form-control" th:field="*{description}"/></textarea>
+                <span th:if="${#fields.hasErrors('description')}" th:errors="*{description}" th:class="help-block">Description error</span>
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary pull-right">Submit</button>
+    </form>
 
+</div>
 </body>
 
 </html>

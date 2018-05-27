@@ -29,7 +29,7 @@
             </div>
         </tr>
     </table>
-    <a class="btn btn-primary" href="/student_teacher/create_course" role="button">Pridėti kursą</a>
+    <a class="btn btn-primary" th:href="@{'/student_teacher/create_edit_course/' + ${teacher.id}}" role="button">Pridėti kursą</a>
 </center>
 
 </body>

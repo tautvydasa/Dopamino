@@ -4,13 +4,9 @@
 
 package lt.dopamino.gamifiedcourse.StudentTeacher.Controllers;
 
-import lt.dopamino.gamifiedcourse.Model.Comment;
-import lt.dopamino.gamifiedcourse.Model.Post;
+import lt.dopamino.gamifiedcourse.Model.*;
 import lt.dopamino.gamifiedcourse.Model.Repository.*;
-import lt.dopamino.gamifiedcourse.Model.Student;
-
-import lt.dopamino.gamifiedcourse.Model.StudentCourse;
-import lt.dopamino.gamifiedcourse.Model.Teacher;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -91,14 +87,36 @@ public class StudentTeacherController {
     public String showCreatedCourses(Model model) {
         Student student = (Student) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         Teacher teacher = teacherRepository.getTeacherByStudentId(student.getId());
+        model.addAttribute("teacher", teacher);
         model.addAttribute("allCreatedCourses", courseRepository.findAllByTeacherId(teacher.getId()));
         return "Teacher/Views/CreatedCoursesPage";
     }
 
-    @GetMapping("/create_course")
-    public String showCreateCourse(Model model)
+    @GetMapping("/create_edit_course/{id}")
+    public String showCreateCourse(Model model, @PathVariable("id") Integer id)
     {
+        model.addAttribute("course", new Course());
+        model.addAttribute("teacher", teacherRepository.getTeacherById(id));
         return "Teacher/Views/CreateEditCoursePage";
+    }
+
+    @GetMapping(value = "/created_course_submitted")
+    public String submitCourse(Model model, @RequestParam String name, @RequestParam String description)
+    {
+        java.util.Date date = new java.util.Date();
+        Student student = (Student) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        Teacher teacher = teacherRepository.getTeacherByStudentId(student.getId());
+        Course course = new Course();
+        course.setName(name);
+        course.setDescription(description);
+        course.setDate(date);
+        course.setPrice(12);
+        course.setTeacher(teacher);
+        course.setVoteSum(5);
+        course.setVisible(true);
+        course.setVotersCount(5);
+        courseRepository.saveAndFlush(course);
+        return "redirect:/student_teacher/created_courses/";
     }
 
     @GetMapping("/courses_forum")
