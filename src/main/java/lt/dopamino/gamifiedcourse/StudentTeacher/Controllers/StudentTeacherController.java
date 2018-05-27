@@ -6,11 +6,14 @@ package lt.dopamino.gamifiedcourse.StudentTeacher.Controllers;
 
 import lt.dopamino.gamifiedcourse.Model.*;
 import lt.dopamino.gamifiedcourse.Model.Repository.*;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @Controller
 @RequestMapping("/student_teacher")
@@ -51,7 +54,9 @@ public class StudentTeacherController {
 
     @GetMapping(value = "/courses/{id}/{id2}/task")
     public String openCourseTest(Model model, @PathVariable("id") Integer id, @PathVariable("id2") Integer id2) {
-        model.addAttribute("allQuestions", questionRepository.getQuestionsById(id2));
+        List<Question> questions = questionRepository.getQuestionsById(id2);
+        model.addAttribute("allQuestions", questions);
+
         return "Teacher/Views/CourseSectionTestPage";
     }
 
@@ -63,7 +68,9 @@ public class StudentTeacherController {
 
     }
 
-    public void calculateResults() {
+    @GetMapping(value = "/courses/{id}/{id2}/calculate")
+    public void calculateResults(Model model, @PathVariable("id") Integer courseId, @PathVariable("id2") Integer sectionId) {
+        List<Question> questions = questionRepository.getQuestionsById(sectionId);
 
     }
 
