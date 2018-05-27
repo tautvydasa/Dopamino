@@ -66,6 +66,13 @@ public class StudentTeacherController {
         return "Teacher/Views/CourseSectionTestPage";
     }
 
+    @GetMapping(value = "/courses/{id}")
+    public String openCourse(Model model, @PathVariable("id") Integer id) {
+        model.addAttribute("course", courseRepository.findById(id).get());
+        model.addAttribute("allSections", courseSectionRepository.getCourseSectionsById(id));
+        return "Teacher/Views/CoursePage";
+    }
+
     public void submitAnswer() {
 
     }
