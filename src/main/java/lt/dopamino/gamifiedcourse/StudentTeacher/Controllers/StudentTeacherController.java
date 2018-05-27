@@ -52,11 +52,6 @@ public class StudentTeacherController {
 
     }
 
-    @GetMapping
-    public String openMainPage() {
-        return "Teacher/Views/StudentTeacherMainPage";
-    }
-
     @GetMapping(value = "/courses/{id}/{id2}/task")
     public String openCourseTest(Model model, @PathVariable("id") Integer id, @PathVariable("id2") Integer id2) {
         List<Question> questions = questionRepository.getQuestionsById(id2);
