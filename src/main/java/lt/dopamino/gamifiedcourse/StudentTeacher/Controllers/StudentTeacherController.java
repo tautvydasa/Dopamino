@@ -16,6 +16,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -30,7 +31,6 @@ public class StudentTeacherController {
 
     private final CommentRepository commentRepository;
 
-
     private final StudentCourseRepository studentCourseRepository;
 
     private final CourseSectionRepository courseSectionRepository;
@@ -41,8 +41,10 @@ public class StudentTeacherController {
 
     private final PaymentRepository paymentRepository;
 
+    private final ResultRepository resultRepository;
+
     @Autowired
-    public StudentTeacherController(StudentRepository studentRepository, PostRepository postRepository, CourseRepository courseRepository, CommentRepository commentRepository, TeacherRepository teacherRepository, StudentCourseRepository studentCourseRepository, CourseSectionRepository courseSectionRepository, QuestionRepository questionRepository, PaymentRepository paymentRepository) {
+    public StudentTeacherController(StudentRepository studentRepository, PostRepository postRepository, CourseRepository courseRepository, CommentRepository commentRepository, TeacherRepository teacherRepository, StudentCourseRepository studentCourseRepository, CourseSectionRepository courseSectionRepository, QuestionRepository questionRepository, PaymentRepository paymentRepository, ResultRepository resultRepository) {
 
         this.studentRepository = studentRepository;
         this.postRepository = postRepository;
@@ -56,6 +58,7 @@ public class StudentTeacherController {
         this.teacherRepository = teacherRepository;
 
         this.paymentRepository = paymentRepository;
+        this.resultRepository = resultRepository;
     }
 
     @GetMapping(value = "/courses/{id}/{id2}/task")
@@ -82,15 +85,21 @@ public class StudentTeacherController {
     }
 
     @GetMapping(value = "/courses/{id}/{id2}/task/calculate")
-    public void calculateResults(Model model, @PathVariable("id") Integer courseId, @PathVariable("id2") Integer sectionId, @RequestParam("answers") Integer answers) {
+    public String calculateResults(Model model, @PathVariable("id") Integer courseId, @PathVariable("id2") Integer sectionId, @RequestParam("answers") Integer answers) {
         List<Question> questions = questionRepository.getQuestionsById(sectionId);
         Result result = new Result();
-        result.setCourse();
-        result.setDate();
-        result.setCourseSection();
-        result.setMark();
-        result.setStudent();
+        Course course = courseRepository.getCourseById(courseId);
         Student student = (Student) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        CourseSection courseSection = courseSectionRepository.getCourseSectionById(sectionId);
+        result.setCourse(course);
+        result.setDate(new Date());
+        result.setCourseSection(courseSection);
+        result.setMark((double)answers / questions.size() * 10);
+        result.setStudent(student);
+        resultRepository.saveAndFlush(result);
+        model.addAttribute("course", courseRepository.findById(courseId).get());
+        model.addAttribute("allSections", courseSectionRepository.getCourseSectionsById(courseId));
+        return "redirect:/courses/" + courseId;
     }
 
     @GetMapping("/purchased_courses")

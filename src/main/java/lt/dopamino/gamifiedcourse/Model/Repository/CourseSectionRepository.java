@@ -10,4 +10,6 @@ import java.util.List;
 public interface CourseSectionRepository extends JpaRepository<CourseSection, Integer> {
     @Query("select m from CourseSection m where m.course.id = ?1")
     List<CourseSection> getCourseSectionsById(int id);
+
+    CourseSection getCourseSectionById(int id);
 }
