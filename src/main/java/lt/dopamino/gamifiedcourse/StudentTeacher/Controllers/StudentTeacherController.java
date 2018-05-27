@@ -1,11 +1,13 @@
-/**
- * @(#) StudentTeacherController.java
- */
-
 package lt.dopamino.gamifiedcourse.StudentTeacher.Controllers;
 
 import lt.dopamino.gamifiedcourse.Model.*;
 import lt.dopamino.gamifiedcourse.Model.Repository.*;
+import lt.dopamino.gamifiedcourse.Model.Student;
+import lt.dopamino.gamifiedcourse.Model.Payment;
+
+
+import lt.dopamino.gamifiedcourse.Model.StudentCourse;
+import lt.dopamino.gamifiedcourse.Model.Teacher;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -13,6 +15,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @Controller
@@ -36,8 +39,10 @@ public class StudentTeacherController {
 
     private final TeacherRepository teacherRepository;
 
+    private final PaymentRepository paymentRepository;
+
     @Autowired
-    public StudentTeacherController(StudentRepository studentRepository, PostRepository postRepository, CourseRepository courseRepository, CommentRepository commentRepository, TeacherRepository teacherRepository, StudentCourseRepository studentCourseRepository, CourseSectionRepository courseSectionRepository, QuestionRepository questionRepository) {
+    public StudentTeacherController(StudentRepository studentRepository, PostRepository postRepository, CourseRepository courseRepository, CommentRepository commentRepository, TeacherRepository teacherRepository, StudentCourseRepository studentCourseRepository, CourseSectionRepository courseSectionRepository, QuestionRepository questionRepository, PaymentRepository paymentRepository) {
 
         this.studentRepository = studentRepository;
         this.postRepository = postRepository;
@@ -50,6 +55,7 @@ public class StudentTeacherController {
 
         this.teacherRepository = teacherRepository;
 
+        this.paymentRepository = paymentRepository;
     }
 
     @GetMapping(value = "/courses/{id}/{id2}/task")
@@ -255,5 +261,36 @@ public class StudentTeacherController {
 
     }
 
+
+    //---------------------------------NETRINTI-------------------------------------------------
+    @GetMapping("/buypoints")
+    public String openPointsShop(Model model) {
+        Student student = (Student) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        Teacher teacher = teacherRepository.getTeacherByStudentId(student.getId());
+        model.addAttribute("allCreatedCourses", courseRepository.findAllByTeacherId(teacher.getId()));
+        return "Teacher/Views/PointsShopPage";
+    }
+
+
+    @GetMapping("/payment")
+    public String openCourses(Model model, @RequestParam(value = "kiekis", required = false/*, defaultValue = "-1"*/) Integer kiekis, @Valid Student studentoTaskai) {
+        Student student = (Student) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        java.util.Date date = new java.util.Date();
+        Payment mokejimas = new Payment();
+        mokejimas.setStudent(student);
+        mokejimas.setDate(date);
+        mokejimas.setPoints(kiekis);
+        mokejimas.setSum(kiekis * 0.2);
+        paymentRepository.saveAndFlush(mokejimas);
+        model.addAttribute("kiekis", kiekis);
+        studentoTaskai.setId(student.getId());
+        studentoTaskai.setEmail(student.getEmail());
+        studentoTaskai.setNickname(student.getNickname());
+        studentoTaskai.setPassword(student.getPassword());
+        studentoTaskai.setPoints(studentRepository.getStudentPointsById(student.getId()) + kiekis);
+        studentRepository.save(studentoTaskai);
+
+        return "Teacher/Views/PaymentPage";
+    }
 
 }

@@ -1,7 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+
 <head>
-    <title>Bootstrap Example</title>
+    <title>Taškų parduotuvė</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -15,7 +17,17 @@
     <a class="btn btn-primary" href="/student_teacher/created_courses" role="button">Created courses</a>
     <a class="btn btn-primary" href="/user/courses" role="button">Courses</a>
     <a class="btn btn-primary" href="/user/courses_forum" role="button">Courses forum</a>
-    <a class="btn btn-primary" href="/student_teacher/buypoints" role="button">Points shop</a>
+
+<div class="container">
+    <h2>Taškų parduotuvė</h2>
+    <form action="#" th:action="@{'/student_teacher/payment'}" method="get">
+        <b>Taškų kiekis:</b>
+        <div class="form-group">
+            <input type="text" class="form-control" name="kiekis">
+        </div>
+        <button type="submit" class="btn btn-success">Pirkti</button>
+    </form>
+</div>
 </center>
 </body>
 </html>

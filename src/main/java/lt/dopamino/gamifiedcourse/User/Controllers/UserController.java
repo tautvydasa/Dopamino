@@ -33,8 +33,15 @@ public class UserController {
     }
 
     @GetMapping("/courses")
-    public String openCourses(Model model) {
-        model.addAttribute("allCourses", courseRepository.findAll());
+    public String openCourses(Model model, @RequestParam(value = "nuo", required = false, defaultValue = "-1") Integer nuo, @RequestParam(value = "iki", required = false, defaultValue = "-1") Integer iki) {
+        if (nuo == -1) {
+            model.addAttribute("allCourses", courseRepository.findAll());
+        }
+        else if (nuo > -1 && iki >-1)
+        {
+            model.addAttribute("allCourses", courseRepository.getCourseByMinMaxPrice(nuo, iki));
+        }
+
         return "Teacher/Views/CoursesPage";
     }
 
@@ -71,6 +78,26 @@ public class UserController {
         }
         return "nepavyko.html";
     }
+
+    @GetMapping(value = "/courses/filter")
+    public String openFilter(Model model) {
+
+        return "Teacher/Views/FilterPage";
+    }
+
+/*    @GetMapping("/fcourses")
+    public String openCourses(Model model, @RequestParam(value = "nuo", required=false) Integer nuo, @RequestParam(value = "iki", required=false) Integer iki) {
+        model.addAttribute("allCourses", courseRepository.findAll());
+        model.addAttribute("nuo", nuo);
+        model.addAttribute("iki", iki);
+        return "Teacher/Views/FiltredCoursesPage";
+    }*/
+
+/*    @GetMapping("/courses")
+    public String openCourses(Model model, @PathVariable("nuo") Integer nuo, @PathVariable("iki") String iki) {
+        model.addAttribute("allCourses", courseRepository.findAll());
+        return "Teacher/Views/CoursesPage";
+    }*/
 
     //-------------------------------------------------------------------------------------------------------------
     //-------------------------------------------------------------------------------------------------------------

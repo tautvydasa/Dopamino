@@ -1,7 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+
 <head>
-    <title>Bootstrap Example</title>
+    <title>Filtruoti kursus</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -15,7 +17,18 @@
     <a class="btn btn-primary" href="/student_teacher/created_courses" role="button">Created courses</a>
     <a class="btn btn-primary" href="/user/courses" role="button">Courses</a>
     <a class="btn btn-primary" href="/user/courses_forum" role="button">Courses forum</a>
-    <a class="btn btn-primary" href="/student_teacher/buypoints" role="button">Points shop</a>
 </center>
+<div class="container">
+    <h2>Filtruoti kursus</h2>
+    <form action="#" th:action="@{'/user/courses'}" method="get">
+        <b>Pagal kainą:</b>
+        <div class="form-group">
+            Nuo: <input type="text" class="form-control" name="nuo">
+            Iki: <input type="text" class="form-control" name="iki">
+        </div>
+        <button type="submit" class="btn btn-default">Submit</button>
+    </form>
+</div>
+
 </body>
 </html>

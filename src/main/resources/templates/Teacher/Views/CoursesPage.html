@@ -1,10 +1,9 @@
-<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
-
+<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org">
 
 <head>
-    <title>Kursas</title>
+    <title>Kursai</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -19,14 +18,17 @@
     <a class="btn btn-primary" href="/user/courses" role="button">Courses</a>
     <a class="btn btn-primary" href="/user/courses_forum" role="button">Courses forum</a>
 </center>
-<center>
-    <h1>Kursai</h1>
-    <table>
+<div class="container">
+    <h2>Kursai</h2>
+    <table class="table">
+        <thead>
         <tr>
             <th>Pavadinimas</th>
             <th>Kaina</th>
             <th>Įvertnimas</th>
         </tr>
+        </thead>
+        <tbody>
         <tr th:each="courses : ${allCourses}">
             <td><a th:href="@{'/user/courses/' + ${courses.id}}"><span th:text="${courses.name}"></span></a>
             </td>
@@ -35,15 +37,13 @@
                 <td th:text="${result}">5</td>
             </div>
         </tr>
+        </tbody>
     </table>
-</center>
+
+    <a th:href="@{'/user/courses/filter'}">Filtruoti</a>
+
+
+</div>
 
 </body>
-
 </html>
-
-<!--<form action="#" th:action="@{/CourseInfoPage.html}" th:object="" method="post">
-    <input type="text" th:field="${courses.name}" />
-    <input type="submit" />
-</form>-->
-<!-- <td th:text="${courses.name}">Onions</td> -->

@@ -25,4 +25,7 @@ public interface CourseRepository extends JpaRepository<Course, Integer> {
     @Query("select m from Course m where m.teacher.id = ?1")
     List<Course> findAllByTeacherId(int id);
 
+    @Query("select m from Course m where m.price >= ?1 and m.price <= ?2")
+    Course getCourseByMinMaxPrice(double min, double max);
+
 }
