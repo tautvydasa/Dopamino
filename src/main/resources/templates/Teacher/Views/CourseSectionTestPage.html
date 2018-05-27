@@ -26,6 +26,7 @@
     $(document).ready(function() {
         var id = 0;
         var teisingi = 0;
+        var visi = document.getElementsByTagName("div").length;
         $('div').hide();
         $("#" + id).show();
         $("#submit").click(function() {
@@ -35,10 +36,16 @@
                 teisingi++;
             }
 
-            $("#" + id).hide();
-            id++;
-            $("#" + id).show();
-
+            if(id < visi - 1) {
+                $("#" + id).hide();
+                id++;
+                $("#" + id).show();
+            }
+            else{
+                id++;
+                alert('Testo rezultatas: ' + teisingi + ' iš ' + id);
+                window.location.href = window.location.href + '/calculate?answers=' + teisingi;
+            }
         });
     });
 </script>

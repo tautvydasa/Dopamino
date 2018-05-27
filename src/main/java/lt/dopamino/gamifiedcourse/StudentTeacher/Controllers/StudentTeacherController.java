@@ -81,10 +81,16 @@ public class StudentTeacherController {
 
     }
 
-    @GetMapping(value = "/courses/{id}/{id2}/calculate")
-    public void calculateResults(Model model, @PathVariable("id") Integer courseId, @PathVariable("id2") Integer sectionId) {
+    @GetMapping(value = "/courses/{id}/{id2}/task/calculate")
+    public void calculateResults(Model model, @PathVariable("id") Integer courseId, @PathVariable("id2") Integer sectionId, @RequestParam("answers") Integer answers) {
         List<Question> questions = questionRepository.getQuestionsById(sectionId);
-
+        Result result = new Result();
+        result.setCourse();
+        result.setDate();
+        result.setCourseSection();
+        result.setMark();
+        result.setStudent();
+        Student student = (Student) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
     }
 
     @GetMapping("/purchased_courses")
