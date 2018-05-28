@@ -26,6 +26,8 @@
         .fa-anchor, .fa-coffee {
             font-size: 200px
         }
+
+        
     </style>
 </head>
 <body>
@@ -78,11 +80,11 @@
 <!-- First Grid -->
 <center>
     <h1>Testas</h1>
-    <div th:each="question,iter : ${allQuestions}" th:id="${iter.index}">
+    <div th:each="question,iter : ${allQuestions}" th:id="quest + ${iter.index}">
         <p th:text="${question.text}"></p>
         <form>
             <label th:each="answer : ${question.answers}">
-                <input type="radio" th:name="answer + ${iter.index}" th:value="${answer.isCorrect()}"><span th:text="${answer.text}"></span><br>
+                <input type="radio" th:name="answer + ${iter.index}" th:value="${answer.isCorrect()}"><span th:text="${answer.text}"></span>
             </label>
         </form>
     </div>
@@ -106,9 +108,9 @@
     $(document).ready(function() {
         var id = 0;
         var teisingi = 0;
-        var visi = document.getElementsByTagName("div").length - 1;
-        $('div').hide();
-        $("#" + id).show();
+        var visi = document.getElementsByTagName("div").length - 3;
+        $("[id^=quest]").hide();
+        $("#quest" + id).show();
         $("#submit").click(function() {
             var selectedButton = 'input[name="answer' + id + '"]:checked';
             var answer = document.querySelector(selectedButton).value;
@@ -117,9 +119,9 @@
             }
 
             if(id < visi - 1) {
-                $("#" + id).hide();
+                $("#quest" + id).hide();
                 id++;
-                $("#" + id).show();
+                $("#quest" + id).show();
             }
             else{
                 id++;
