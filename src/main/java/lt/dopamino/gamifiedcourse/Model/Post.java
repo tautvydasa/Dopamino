@@ -26,12 +26,12 @@ public class Post
 	
 	private Date date;
 
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.ALL)
 	private Course course;
 
 	@ManyToOne
 	private Student student;
 
-	@OneToMany(mappedBy = "post")
+	@OneToMany(cascade = {CascadeType.ALL}, mappedBy = "post")
 	private List<Comment> comments;
 }

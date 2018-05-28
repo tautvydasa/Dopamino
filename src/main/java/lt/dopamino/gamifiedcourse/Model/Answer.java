@@ -23,6 +23,6 @@ public class Answer
 
 	private boolean isCorrect;
 
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.ALL)
 	private Question question;
 }

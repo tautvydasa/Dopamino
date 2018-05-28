@@ -26,6 +26,6 @@ public class Comment
 	@ManyToOne
 	private Student student;
 
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.ALL)
 	private Post post;
 }

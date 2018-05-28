@@ -19,16 +19,23 @@
     <a class="btn btn-primary" href="/user/courses" role="button">Courses</a>
     <a class="btn btn-primary" href="/user/courses_forum" role="button">Courses forum</a>
 </center>
-<center>
-<table>
-    <tr th:each="courses : ${allCourses}">
-        <td th:text="${courses.id}"></td>
-        <td>
-            <a th:text="${courses.name}" th:href="@{'/user/courses_forum/' + ${courses.id}}"></a>
-        </td>
-    </tr>
-</table>
-</center>
+<div class="container">
+    <h2>Kursų forumai</h2>
+    <center>
+        <table class="table">
+            <thead>
+            <th>Kursas</th>
+            <thead>
+            <tbody>
+            <tr th:each="courses : ${allCourses}">
+                <td>
+                    <a th:text="${courses.name}" th:href="@{'/user/courses_forum/' + ${courses.id}}"></a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </center>
+</div>
 
 </body>
 
