@@ -54,10 +54,8 @@
             </div>
             <button type="submit" class="btn btn-primary pull-right">Submit</button>
             <div>
-                <legend>Legend</legend>
                 <table>
-                    <tbody id="customTable">
-                    </tbody>
+                    <tbody id="customTable"/>
                 </table>
                 <input type="button" id="new-row" value="Add"/>
             </div>
@@ -69,18 +67,21 @@
 <script type="text/javascript">
 
     $("#new-row").on('click', function () {
-        $("#customTable").append("<div id='section' class='panel' style='width: 250px; background-color: #c8ff2b;'>" +
+        $("#customTable").append("<div id='section' class='panel' style='width: 500px; background-color: #c8ff2b;'>" +
+                                        "<legend>Course section</legend>" +
                             "           <div id='topic' style='margin-bottom:20px;margin-top:15px;'>" +
                             "               <input type='text'>" +
                             "               <button onclick='del(this)'>X</button> " +
                             "           </div>" +
                             "           <div class='panel-body'>" +
+                                                "<legend>Question</legend>" +
                                 "               <div id='question'>" +
                                     "               <input type='text'>" +
                                     "               <button onclick='del(this)'>X</button>" +
                                 "               </div>" +
+                                                "<legend>Answer</legend>" +
                                 "               <div id='answer'>" +
-                                    "               <input type='text'>" +
+                                    "               <textarea input type='text'/>" +
                                     "               <button onclick='del(this)'>X</button>" +
                                 "               </div>" +
                             "           </div>" +
