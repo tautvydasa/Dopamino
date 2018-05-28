@@ -21,9 +21,9 @@ public class Question
 
 	private String text;
 
-	@OneToMany(fetch = FetchType.EAGER, mappedBy = "question")
+	@OneToMany(fetch = FetchType.EAGER, cascade = {CascadeType.ALL}, mappedBy = "question")
 	private List<Answer> answers;
 
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.ALL)
 	private CourseSection courseSection;
 }

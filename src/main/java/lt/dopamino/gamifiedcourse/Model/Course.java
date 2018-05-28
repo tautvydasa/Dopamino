@@ -36,12 +36,12 @@ public class Course
     @OneToMany(mappedBy = "course")
     private List<StudentCourse> studentCourses;
 
-    @OneToMany(mappedBy = "course")
+    @OneToMany(cascade = {CascadeType.ALL}, mappedBy = "course")
     private List<CourseSection> courseSections;
 
     @OneToMany(mappedBy = "course")
     private List<Result> results;
 
-    @OneToMany(mappedBy = "course")
+    @OneToMany(cascade = {CascadeType.ALL}, mappedBy = "course")
     private List<Post> posts;
 }

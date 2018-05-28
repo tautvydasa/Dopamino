@@ -29,12 +29,12 @@ public class CourseSection
 	@OneToOne
 	private CourseSection nextSection;
 
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.ALL)
     private Course course;
 
 	@OneToMany(mappedBy = "courseSection")
 	private List<Result> results;
 
-	@OneToMany(mappedBy = "courseSection")
+	@OneToMany(cascade = {CascadeType.ALL}, mappedBy = "courseSection")
 	private List<Question> questions;
 }
