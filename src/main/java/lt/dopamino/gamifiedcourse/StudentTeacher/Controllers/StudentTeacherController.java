@@ -108,8 +108,19 @@ public class StudentTeacherController {
         studentCourse.setProgress(courseProgress);
         studentCourseRepository.save(studentCourse);
 
+        int doneTestCount = resultRepository.getDoneTestCount(courseId, student.getId());
+        if(courseSections.size() == doneTestCount){
+            calculatePoints(courseProgress);
+        }
+
         model.addAttribute("course", courseRepository.findById(courseId).get());
         return "redirect:/student_teacher/courses/" + courseId;
+    }
+
+    private void calculatePoints(double progress) {
+        Student student = (Student) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        student.setPoints(student.getPoints() + progress);
+        studentRepository.save(student);
     }
 
     @GetMapping("/purchased_courses")
@@ -284,10 +295,6 @@ public class StudentTeacherController {
     }
 
     public void checkCourseRating() {
-
-    }
-
-    public void calculatePoints() {
 
     }
 

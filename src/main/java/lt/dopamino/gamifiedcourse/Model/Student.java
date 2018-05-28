@@ -15,7 +15,7 @@ public class Student extends User
     @GeneratedValue(strategy=GenerationType.AUTO)
     private Integer id;
 
-	private int points;
+	private double points;
 
 	@OneToMany(mappedBy = "student")
 	private List<StudentCourse> studentCourses;
