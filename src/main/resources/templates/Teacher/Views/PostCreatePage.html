@@ -1,41 +1,96 @@
 <!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
-<!DOCTYPE html>
-<html lang="en"
-      xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.w3.org/1999/xhtml">
-
+<html xmlns:layout="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Kursas</title>
-    <meta charset="utf-8">
+    <title>Dopamino</title>
+    <link rel="shortcut icon" type="image/x-icon"
+          href="https://www110.lunapic.com/do-not-link-here-use-hosting-instead/15275042459092960?3877556333"/>
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <style>
+        body, h1, h2, h3, h4, h5, h6 {
+            font-family: "Lato", sans-serif
+        }
+
+        .w3-bar, h1, button {
+            font-family: "Montserrat", sans-serif
+        }
+
+        .fa-anchor, .fa-coffee {
+            font-size: 200px
+        }
+    </style>
 </head>
 <body>
-<center>
-    <div align="right"><a href="/logout"><b>LOGOUT<b></b></b></a></div>
-    <a class="btn btn-primary" href="/student_teacher/purchased_courses" role="button">Purchased courses</a>
-    <a class="btn btn-primary" href="/student_teacher/created_courses" role="button">Created courses</a>
-    <a class="btn btn-primary" href="/user/courses" role="button">Courses</a>
-    <a class="btn btn-primary" href="/user/courses_forum" role="button">Courses forum</a>
 
+<!-- Navbar -->
+<div class="w3-top">
+    <div class="w3-bar w3-red w3-card w3-left-align w3-large">
+        <a class="w3-bar-item w3-button w3-hide-medium w3-hide-large w3-right w3-padding-large w3-hover-white w3-large w3-red"
+           href="javascript:void(0);" onclick="myFunction()" title="Toggle Navigation Menu"><i
+                class="fa fa-bars"></i></a>
+        <a href="/main" class="w3-bar-item w3-button w3-padding-large w3-white">Pagrindinis</a>
+        <a href="/student_teacher/purchased_courses"
+           class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Jūsų kursai</a>
+        <a href="/student_teacher/created_courses"
+           class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Sukurti kursai</a>
+        <a href="/user/courses" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Kursai</a>
+        <a href="/user/courses_forum" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Forumas</a>
+        <a href="/student_teacher/buypoints"
+           class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Taškų
+            parduotuvė</a>
+        <a href="/logout" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">LOGOUT</a>
+    </div>
+
+    <!-- Navbar on small screens -->
+    <div id="navDemo" class="w3-bar-block w3-white w3-hide w3-hide-large w3-hide-medium w3-large">
+        <a class="w3-bar-item w3-button w3-hide-medium w3-hide-large w3-right w3-padding-large w3-hover-white w3-large w3-red"
+           href="javascript:void(0);" onclick="myFunction()" title="Toggle Navigation Menu"><i
+                class="fa fa-bars"></i></a>
+        <a href="/main" class="w3-bar-item w3-button w3-padding-large w3-white">Pagrindinis</a>
+        <a href="/student_teacher/purchased_courses"
+           class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Jūsų kursai</a>
+        <a href="/student_teacher/created_courses"
+           class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Sukurti kursai</a>
+        <a href="/user/courses" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Kursai</a>
+        <a href="/user/courses_forum" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Forumas</a>
+        <a href="/student_teacher/buypoints"
+           class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Taškų
+            parduotuvė</a>
+        <a href="/logout" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">LOGOUT</a>
+    </div>
+</div>
+
+<!-- Header -->
+<header class="w3-container w3-red w3-center" style="padding:128px 16px">
+    <h1 class="w3-margin w3-jumbo">DOPAMINO</h1>
+    <p class="w3-xlarge">Online kursai!</p>
+    <!--<button class="w3-button w3-black w3-padding-large w3-large w3-margin-top">Get Started</button>-->
+</header>
+
+<!-- First Grid -->
 <div layout:fragment="content">
-
-    <h2>Create post</h2>
+    <h2>Sukurti temą</h2>
     <br/>
 
     <form class="form-horizontal" th:object="${post}" th:action="@{'/user/courses_forum/' + ${course.id} + '/insert_post'}">
         <input type="hidden" th:field="*{id}" />
         <div th:class="form-group" th:classappend="${#fields.hasErrors('name')}? 'has-error'">
-            <label class="col-sm-2 control-label">Name</span></label>
+            <label class="col-sm-2 control-label">Pavadinimas</span></label>
             <div class="col-md-10">
                 <input type="text" class="form-control" th:field="*{name}"/>
                 <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}" th:class="help-block">Name error</span>
             </div>
         </div>
         <div th:class="form-group" th:classappend="${#fields.hasErrors('description')}? 'has-error'">
-            <label class="col-sm-2 control-label">Description</span></label>
+            <label class="col-sm-2 control-label">Klausimas</span></label>
             <div class="col-md-10">
                 <input type="text" class="form-control" th:field="*{description}" />
                 <span th:if="${#fields.hasErrors('description')}" th:errors="*{description}" th:class="help-block">Description error</span>
@@ -47,6 +102,18 @@
     <br/><br/><br/>
 
 </div>
-</center>
+<script>
+    // Used to toggle the menu on small screens when clicking on the menu button
+    function myFunction() {
+        var x = document.getElementById("navDemo");
+        if (x.className.indexOf("w3-show") == -1) {
+            x.className += " w3-show";
+        } else {
+            x.className = x.className.replace(" w3-show", "");
+        }
+    }
+</script>
+
 </body>
 </html>
+
