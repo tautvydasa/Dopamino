@@ -94,12 +94,22 @@ public class StudentTeacherController {
         result.setCourse(course);
         result.setDate(new Date());
         result.setCourseSection(courseSection);
-        result.setMark((double)answers / questions.size() * 10);
+        result.setMark((double)answers / questions.size() * courseSection.getWeight());
         result.setStudent(student);
         resultRepository.saveAndFlush(result);
+
+        double courseProgress = 0;
+        List<CourseSection> courseSections = courseSectionRepository.getCourseSectionsById(courseId);
+        for (CourseSection section : courseSections) {
+            courseProgress += resultRepository.getBestSectionMark(section.getId(), student.getId());
+        }
+
+        StudentCourse studentCourse = studentCourseRepository.checkIfAlreadyPurchased(student.getId(), courseId);
+        studentCourse.setProgress(courseProgress);
+        studentCourseRepository.save(studentCourse);
+
         model.addAttribute("course", courseRepository.findById(courseId).get());
-        model.addAttribute("allSections", courseSectionRepository.getCourseSectionsById(courseId));
-        return "redirect:/courses/" + courseId;
+        return "redirect:/student_teacher/courses/" + courseId;
     }
 
     @GetMapping("/purchased_courses")
@@ -179,8 +189,10 @@ public class StudentTeacherController {
         return "redirect:/student_teacher/created_courses/";
     }
 
-    public void openCourseLeaderboard() {
-
+    @GetMapping(value = "/courses/{id}/leaderboard")
+    public String openCourseLeaderboard(Model model, @PathVariable("id") Integer courseId) {
+        model.addAttribute("allResults", studentCourseRepository.getStudentCoursesByCourseId(courseId));
+        return "Teacher/Views/CourseLeaderboardPage";
     }
 
     public void openCreatedCourses() {

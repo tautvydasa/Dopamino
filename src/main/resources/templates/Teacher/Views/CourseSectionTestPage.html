@@ -1,12 +1,19 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
-    <title>Good Thymes Virtual Grocery</title>
+    <title>Testas</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <link rel="stylesheet" type="text/css" media="all"
           href="../../../css/gtvg.css" th:href="@{/css/gtvg.css}" />
 </head>
 <body>
+<center>
+    <div align="right"><a href="/logout"><b>LOGOUT<b></b></b></a></div>
+    <a class="btn btn-primary" href="/student_teacher/purchased_courses" role="button">Purchased courses</a>
+    <a class="btn btn-primary" href="/student_teacher/created_courses" role="button">Created courses</a>
+    <a class="btn btn-primary" href="/user/courses" role="button">Courses</a>
+    <a class="btn btn-primary" href="/user/courses_forum" role="button">Courses forum</a>
+</center>
 <center>
     <h1>Testas</h1>
     <div th:each="question,iter : ${allQuestions}" th:id="${iter.index}">
@@ -21,12 +28,12 @@
 </center>
 </body>
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script>
     $(document).ready(function() {
         var id = 0;
         var teisingi = 0;
-        var visi = document.getElementsByTagName("div").length;
+        var visi = document.getElementsByTagName("div").length - 1;
         $('div').hide();
         $("#" + id).show();
         $("#submit").click(function() {

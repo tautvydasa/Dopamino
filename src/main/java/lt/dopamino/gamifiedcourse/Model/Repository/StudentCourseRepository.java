@@ -16,4 +16,6 @@ public interface StudentCourseRepository extends JpaRepository<StudentCourse, In
 
     StudentCourse findById(int id);
 
+    @Query("select m from StudentCourse m where m.course.id = ?1 order by m.progress desc")
+    List<StudentCourse> getStudentCoursesByCourseId(int id);
 }

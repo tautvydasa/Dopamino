@@ -4,7 +4,7 @@
       xmlns:th="http://www.thymeleaf.org">
 
 <head>
-    <title>Kursas</title>
+    <title>Kurso lyderių lentelė</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -20,16 +20,17 @@
     <a class="btn btn-primary" href="/user/courses_forum" role="button">Courses forum</a>
 </center>
 <center>
-    <h1>Kurso informacija</h1>
-    Pavadinimas: <span th:text="${course.name}"></span><br>
-    <!--Aprašymas: <span th:text="${course.description}"></span><br>-->
-    <a th:href="@{'/student_teacher/courses/' + ${course.id} + '/leaderboard'}">Kurso lyderių lentelė</a><br>
-    <p></p>
-    <div th:each="courseSection : ${allSections}">
-        <p th:text="${courseSection.name}"></p>
-        <p th:text="${courseSection.description}"></p>
-        <p><a th:href="@{'/student_teacher/courses/' + ${course.id} + '/' + ${courseSection.id} + '/task'}">Atlikti skyriaus testą</a></p>
-    </div>
+    <h1>Kurso lyderių lentelė</h1>
+    <table>
+        <tr>
+            <th>Studento vardas </th>
+            <th>Progresas</th>
+        </tr>
+        <tr th:each="result : ${allResults}">
+            <td th:text="${result.student.getNickname()}"></td>
+            <td th:text="${result.progress}"></td>
+        </tr>
+    </table>
 </center>
 </body>
 </html>
